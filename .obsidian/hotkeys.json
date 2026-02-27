@@ -1,0 +1,122 @@
+{
+  "editor:insert-wikilink": [
+    {
+      "modifiers": ["Alt"],
+      "key": "L"
+    }
+  ],
+  "workspace:close": [
+    {
+      "modifiers": ["Mod"],
+      "key": "W"
+    }
+  ],
+  "file-explorer:reveal-active-file": [
+    {
+      "modifiers": ["Alt"],
+      "key": "6"
+    }
+  ],
+  "workspace:next-tab": [
+    {
+      "modifiers": ["Ctrl"],
+      "key": "Tab"
+    }
+  ],
+  "workspace:previous-tab": [
+    {
+      "modifiers": ["Mod"],
+      "key": "`"
+    }
+  ],
+  "workspace:close-others": [
+    {
+      "modifiers": ["Alt"],
+      "key": "X"
+    }
+  ],
+  "app:open-settings": [
+    {
+      "modifiers": ["Mod"],
+      "key": ","
+    }
+  ],
+  "command-palette:open": [
+    {
+      "modifiers": ["Alt"],
+      "key": "P"
+    }
+  ],
+  "workspace:new-tab": [
+    {
+      "modifiers": ["Mod"],
+      "key": "T"
+    }
+  ],
+  "file-explorer:move-file": [
+    {
+      "modifiers": ["Alt"],
+      "key": "R"
+    }
+  ],
+  "workspace:export-pdf": [
+    {
+      "modifiers": ["Mod"],
+      "key": "P"
+    }
+  ],
+  "templater-obsidian:insert-templater": [
+    {
+      "modifiers": ["Alt"],
+      "key": "3"
+    }
+  ],
+  "templater-obsidian:create-new-note-from-template": [
+    {
+      "modifiers": ["Alt"],
+      "key": "N"
+    }
+  ],
+  "global-search:open": [
+    {
+      "modifiers": ["Alt"],
+      "key": "F"
+    }
+  ],
+  "editor:open-search-replace": [
+    {
+      "modifiers": ["Mod", "Shift"],
+      "key": "F"
+    }
+  ],
+  "editor:open-search": [
+    {
+      "modifiers": ["Mod"],
+      "key": "F"
+    }
+  ],
+  "workspace:edit-file-title": [
+    {
+      "modifiers": [],
+      "key": "F2"
+    }
+  ],
+  "editor:save-file": [
+    {
+      "modifiers": ["Mod"],
+      "key": "S"
+    }
+  ],
+  "workspace:copy-url": [
+    {
+      "modifiers": ["Mod", "Shift"],
+      "key": "C"
+    }
+  ],
+  "workspace:undo-close-pane": [
+    {
+      "modifiers": ["Alt", "Shift"],
+      "key": "Z"
+    }
+  ]
+}
