@@ -2,7 +2,7 @@
 
 A batteries-included [Obsidian](https://obsidian.md) vault template for organizing your entire life with structured notes, templates, and AI agent support.
 
-Life OS gives you **12 note types**, **16 templates**, and a flat-file architecture that scales from a handful of notes to tens of thousands — all queryable, all linkable, no plugins required for the core workflow.
+Life OS gives you **11 note types**, **15 templates**, and a flat-file architecture that scales from a handful of notes to tens of thousands — all queryable, all linkable, no plugins required for the core workflow.
 
 ## Quick Start (5 minutes)
 
@@ -44,7 +44,6 @@ vault/
 │       ├── projects/      # Active projects
 │       ├── anniversaries/ # Birthdays, weddings
 │       ├── chores/        # Recurring household tasks
-│       ├── rituals/       # Recurring personal activities
 │       └── self/          # Personal context docs
 ├── 90_attachments/        # Images, PDFs, files (flat)
 ├── CLAUDE.md              # AI agent instructions
@@ -56,7 +55,7 @@ vault/
 - `02_context/` holds reference documents that don't need timestamps
 - No nested subfolders means simpler linking and faster search
 
-## The 12 Note Types
+## The 11 Note Types
 
 | Type | Purpose | Location | Filename |
 |------|---------|----------|----------|
@@ -70,14 +69,13 @@ vault/
 | `project` | Task containers | `02_context/projects/` | `2026-01-website.md` |
 | `reference` | Bookmarks, books, media | `10_notes/` | `20260103-1200-docs.md` |
 | `chore` | Recurring household tasks | `02_context/chores/` | `cleaning-7-bathroom.md` |
-| `ritual` | Recurring personal activities | `02_context/rituals/` | `self-7-piano.md` |
 | `context` | Personal background docs | `02_context/self/` | `health.md` |
 
 Every note has YAML frontmatter with `type`, `category`, `slug`, and `timestamp`. This makes the vault fully queryable without folder hierarchy.
 
 ## Templates
 
-16 templates in `20_structure/01_system/templates/`:
+15 templates in `20_structure/01_system/templates/`:
 
 | Template | Type | Syntax |
 |----------|------|--------|
@@ -96,7 +94,6 @@ Every note has YAML frontmatter with `type`, `category`, `slug`, and `timestamp`
 | `media.md` | Reference (book/media) | Placeholder |
 | `resource.md` | Reference (guide) | Placeholder |
 | `chore.md` | Chore | Placeholder |
-| `ritual.md` | Ritual | Placeholder |
 
 **Templater templates** use `<% %>` syntax for dynamic dates and interactive prompts.
 **Placeholder templates** use `{{field}}` syntax for manual fill-in (works with any note creation tool).
@@ -146,10 +143,10 @@ Every note has YAML frontmatter with `type`, `category`, `slug`, and `timestamp`
 Tasks use `##` headers for a status timeline:
 
 ```markdown
-## to-do - 01 Jan 2026 at 10:00
+## 🔴 to-do - 01 Jan 2026 at 10:00
 Created the task
 
-## in progress - 02 Jan 2026 at 09:30
+## 🟠 in progress - 02 Jan 2026 at 09:30
 Started working on it
 ```
 
@@ -161,7 +158,7 @@ This vault includes `CLAUDE.md` with instructions for AI coding assistants (Clau
 
 - Create notes with correct frontmatter and filenames
 - Use WikiLinks properly
-- Respect the 12-type schema
+- Respect the 11-type schema
 - Avoid common mistakes
 
 To use with **Claude Code**: just open the vault directory — Claude reads `CLAUDE.md` automatically.
