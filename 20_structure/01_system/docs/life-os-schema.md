@@ -2,7 +2,7 @@
 type: resource
 category: guide
 created: 2026-01-16
-title: "Life OS Schema v8.4"
+title: "Life OS Schema v8.5"
 slug: life-os-schema
 timestamp: 20260116-1200
 topics:
@@ -12,7 +12,7 @@ topics:
   - architecture
 ---
 
-# Life OS Schema v8.4
+# Life OS Schema v8.5
 
 This document defines the unified data model for the Life OS platform. It serves as the **Single Source of Truth** for how notes are structured, categorized, and linked across the vault.
 
@@ -872,6 +872,7 @@ project: project-slug  # Optional
 entity: []  # Optional
 title: "Action Description"
 due: YYYY-MM-DD
+scheduled: "YYYY-MM-DD HH:MM-HH:MM"  # Optional — time block for calendar week view
 ```
 
 ### Project Template
@@ -970,6 +971,7 @@ Optional completion note
 
 | Version | Date | Changes |
 |---------|------|---------|
+| v8.5 | 2026-03-09 | Added optional `scheduled` field to tasks. Format: `"YYYY-MM-DD HH:MM-HH:MM"`. Enables time-block scheduling via dashboard calendar week view drag-and-drop. Separate from `due` (deadline) — `scheduled` is when you plan to work on it. |
 | v8.4 | 2026-03-09 | Added `channel` category to `reference` type for YouTube/Twitch channel subscriptions. Fields: `platform`, `thumbnail`, `subscribed`. Dashboard tab for channel management. |
 | v8.3 | 2026-03-08 | Renamed `effort` → `duration` on chores for consistency between frontmatter and dashboard. `time_hint` is now a derived value — computed by dashboard drag-and-drop reorder based on routine start time + cumulative duration. Migrated 102 chore notes. |
 | v8.2 | 2026-03-07 | Merged interaction categories `meeting` and `visit` into single `irl` category. Simplifies to 5 medium-based categories: `irl`, `call`, `chat`, `mail`, `letter`. Migrated 129 existing notes. |
