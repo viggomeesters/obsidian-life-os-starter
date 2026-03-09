@@ -1,5 +1,8 @@
 # Life OS — Obsidian Starter Vault
 
+[![Latest Release](https://img.shields.io/github/v/release/viggomeesters/obsidian-life-os-starter?label=latest%20release&color=%2331addd)](https://github.com/viggomeesters/obsidian-life-os-starter/releases/latest)
+[![Schema](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fviggomeesters%2Fobsidian-life-os-starter%2Fmain%2Fversions.json&query=%24.schema&label=schema&color=%2331addd)](https://github.com/viggomeesters/obsidian-life-os-starter/blob/main/CHANGELOG.md)
+
 A batteries-included [Obsidian](https://obsidian.md) vault template for organizing your entire life with structured notes, templates, and AI agent support.
 
 Life OS gives you **11 note types**, **15 templates**, and a flat-file architecture that scales from a handful of notes to tens of thousands — all queryable, all linkable, no plugins required for the core workflow.
