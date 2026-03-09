@@ -6,7 +6,7 @@ slug: cleaning-7-bathroom
 title: "Clean bathroom"
 area: home
 frequency: 7
-effort: 30
+duration: 30
 entity: []
 topics: [cleaning]
 ---

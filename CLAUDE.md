@@ -1,6 +1,6 @@
 # Life OS Vault — Agent Instructions
 
-> This vault uses Life OS v7.4. Read the schema before making changes.
+> This vault uses Life OS v8.4 Read the schema before making changes.
 
 ## Schema & Rules
 
@@ -16,7 +16,7 @@
 - `10_notes/` → timestamped notes (flat, no subfolders)
 - `20_structure/01_system/docs/` → schema, conventions, agent instructions
 - `20_structure/01_system/templates/` → note templates
-- `20_structure/02_context/` → entities, projects, anniversaries, chores, rituals, self
+- `20_structure/02_context/` → entities, projects, anniversaries, chores, self
 - `90_attachments/` → files (flat, no subfolders)
 
 ## Critical Rules
@@ -25,7 +25,7 @@
 
 - `10_notes/` format: `YYYYMMDD-HHmm-slug.md` (always with timestamp prefix)
 - `02_context/` files: no timestamp, only slug (e.g., `john-doe.md`)
-- Chores/Rituals: `{category}-{frequency}-{slug}.md` (e.g., `cleaning-7-bathroom.md`)
+- Chores: `{category}-{frequency}-{slug}.md` (e.g., `cleaning-7-bathroom.md`)
 - Anniversaries: `{MM-DD}-{category}-{entity}.md` (e.g., `01-15-birthday-john-doe.md`)
 - No type/category in filename (type belongs in frontmatter)
 - Slug always kebab-case, never truncate long names
@@ -53,7 +53,7 @@
 
 - Use WikiLinks with display text for readability: `[[slug|Readable title]]`
 
-## 12 Types (Quick Reference)
+## 11 Types (Quick Reference)
 
 | Type | Location | Example |
 |------|----------|---------|
@@ -67,7 +67,6 @@
 | `project` | `02_context/projects/` | `2026-01-personal-website.md` |
 | `reference` | `10_notes/` | `20260215-1200-article-rag.md` |
 | `chore` | `02_context/chores/` | `cleaning-7-bathroom.md` |
-| `ritual` | `02_context/rituals/` | `self-7-piano-practice.md` |
 | `context` | `02_context/self/` | `health.md` |
 
 For all categories, fields, and templates: read `life-os-schema.md`.
