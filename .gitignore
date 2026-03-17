@@ -1,11 +1,2 @@
-# Obsidian workspace (local-only)
-.obsidian/workspace.json
-.obsidian/workspace-mobile.json
-.obsidian/cache
-
-# OS
 .DS_Store
 Thumbs.db
-
-# Claude Code
-.claude/

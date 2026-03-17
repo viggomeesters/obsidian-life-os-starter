@@ -1,17 +1,3 @@
----
-type: resource
-category: guide
-created: 2026-01-16
-title: "Life OS Schema v8.5"
-slug: life-os-schema
-timestamp: 20260116-1200
-topics:
-  - workflow
-  - metadata
-  - life-os
-  - architecture
----
-
 # Life OS Schema v8.5
 
 This document defines the unified data model for the Life OS platform. It serves as the **Single Source of Truth** for how notes are structured, categorized, and linked across the vault.
@@ -999,5 +985,3 @@ Optional completion note
 | v6.0 | 2026-01-16 | Introduced `area`, simplified types (10→6), standardized `entity` as array |
 | v5.1 | 2026-01-16 | Added chat fallback protocol |
 | v5.0 | 2026-01-15 | English-first, concise titles |
-
-`status: 🟢 done removed by claude code`
