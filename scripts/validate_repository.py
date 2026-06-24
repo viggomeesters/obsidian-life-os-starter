@@ -7,16 +7,18 @@ import json
 from pathlib import Path
 
 import yaml
+from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_FILES = [
-    "README.md", "LICENSE", "vault-schema.json", "life-os-schema.yaml", "life-os-schema.md", "versions.json", "Makefile",
+    "README.md", "LICENSE", "vault-schema.json", "schema/vault-schema.contract.schema.json", "life-os-schema.yaml", "life-os-schema.md", "versions.json", "Makefile",
     "requirements.txt", "AGENTS.md", ".editorconfig", "assets/vault-schema-hero.svg",
     "docs/ARCHITECTURE.md", "docs/ROADMAP.md", "docs/REPO_COMPLETE.md", "docs/MAINTAINER_CHECKLIST.md",
     "docs/PACKAGE.md", "docs/HERO_GUIDELINES.md", "docs/generated-schema-reference.md",
     "docs/compatibility/v9.4.1.md", "CONTRIBUTORS.md", "CODE_OF_CONDUCT.md", "SUPPORT.md", "SECURITY.md", "NOTICE.md",
     ".github/pull_request_template.md", ".github/ISSUE_TEMPLATE/config.yml",
     "dist/vault-schema.schema.json", "dist/checksums.txt", "site/index.html", "site/vault-schema.schema.json", "docs/index.html", "docs/vault-schema.schema.json",
+    "scripts/validate_note.py", "scripts/diff_schema_compatibility.py",
 ]
 BLOCKED_PATHS = [".go-workflow", "go_workflow", "tasks.md"]
 BLOCKED_CONTENT = ["This repo has been consolidated into", "Archived", "agent-brain/context/schema"]
@@ -53,6 +55,12 @@ def main() -> None:
             fail(f"blocked repo-local workflow artifact present: {blocked}")
 
     schema = read_json(ROOT / "vault-schema.json")
+    contract_meta_schema = read_json(ROOT / "schema" / "vault-schema.contract.schema.json")
+    meta_errors = sorted(Draft202012Validator(contract_meta_schema).iter_errors(schema), key=lambda e: list(e.path))
+    if meta_errors:
+        first = meta_errors[0]
+        loc = ".".join(str(p) for p in first.path) or "<root>"
+        fail(f"vault-schema.json fails contract meta-schema at {loc}: {first.message}")
     versions = json.loads((ROOT / "versions.json").read_text(encoding="utf-8"))
     if str(schema.get("version")) != versions.get("version"):
         fail("versions.json version does not match vault-schema.json")
@@ -110,9 +118,16 @@ def main() -> None:
     dist_schema = json.loads((ROOT / "dist" / "vault-schema.schema.json").read_text(encoding="utf-8"))
     if sorted(dist_schema.get("properties", {}).get("type", {}).get("enum", [])) != sorted(type_names):
         fail("JSON Schema type enum does not match canonical JSON types")
+    if not dist_schema.get("allOf"):
+        fail("JSON Schema export missing type/category conditional validation")
+    # Prove conditional schema catches an impossible category for a known type.
+    sample_type = sorted(type_names)[0]
+    bad_note = {"type": sample_type, "category": "__invalid__"}
+    if not list(Draft202012Validator(dist_schema).iter_errors(bad_note)):
+        fail("JSON Schema conditional validation did not reject invalid type/category pair")
 
     checksums = (ROOT / "dist" / "checksums.txt").read_text(encoding="utf-8")
-    for rel in ["vault-schema.json", "life-os-schema.yaml", "life-os-schema.md", "versions.json", "dist/vault-schema.schema.json", "dist/vault-schema-v9.4.1.zip"]:
+    for rel in ["vault-schema.json", "schema/vault-schema.contract.schema.json", "life-os-schema.yaml", "life-os-schema.md", "versions.json", "dist/vault-schema.schema.json", "dist/vault-schema-v9.4.1.zip"]:
         digest = hashlib.sha256((ROOT / rel).read_bytes()).hexdigest()
         if f"{digest}  {rel}" not in checksums:
             fail(f"checksums.txt missing current digest for {rel}")

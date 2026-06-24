@@ -17,6 +17,7 @@ This repository is the standalone schema mirror for the current vault contract. 
 | Status values | `6` |
 | Templates included | `46` |
 | JSON Schema | [`dist/vault-schema.schema.json`](dist/vault-schema.schema.json) |
+| Contract meta-schema | [`schema/vault-schema.contract.schema.json`](schema/vault-schema.contract.schema.json) |
 | Docs site | https://viggomeesters.github.io/vault-schema/ |
 | Public safety boundary | schema/templates only; no private vault notes or indexes |
 
@@ -55,6 +56,20 @@ from pathlib import Path
 schema = json.loads(Path("vault-schema.json").read_text())
 print(schema["version"])
 ```
+
+
+## Validation tools
+
+```bash
+make check
+make note-validate
+make compat-diff
+```
+
+- `schema/vault-schema.contract.schema.json` validates the shape of canonical `vault-schema.json`.
+- `dist/vault-schema.schema.json` validates note frontmatter and now includes type/category/area conditionals.
+- `scripts/validate_note.py <note.md>` validates Markdown frontmatter against the generated JSON Schema plus semantic contract checks.
+- `scripts/diff_schema_compatibility.py <old> <new>` reports type, field, location, and category compatibility changes for files or `git-ref:path` inputs.
 
 ## Agent usage
 

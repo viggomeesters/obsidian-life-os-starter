@@ -5,9 +5,9 @@
   "types": 11,
   "templates": 46,
   "source": "vault-schema.json",
-  "schema_sha256": "6a62d096ff1661f6094d231ea804c5ad23608350198465b47525b7186e736d93",
+  "schema_sha256": "fc20ad99b7473dcf5d155056893430e3fc7009f39c167ab8d4f201bd6fae599e",
   "public_repository": "https://github.com/viggomeesters/vault-schema",
   "docs": "https://viggomeesters.github.io/vault-schema/",
   "legacy_yaml": "life-os-schema.yaml",
-  "legacy_yaml_sha256": "e66b7ba40972b9812e5ea69ddefc487ec192cf365d87cef3ab504dd9ea519b5c"
+  "legacy_yaml_sha256": "ab510a9932108fc52d9a2ff207caaf6a2df92a050b5a862a770e87956f089c87"
 }

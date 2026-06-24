@@ -178,5 +178,2374 @@
       "description": "Older slugs/paths/source_ids this note replaces or materially updates"
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "anniversary"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "adoptie",
+              "friendship",
+              "getrouwd",
+              "overleden",
+              "samenwonen",
+              "verhuisd",
+              "verjaardag",
+              "verkering"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "adoptie"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "social"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "friendship"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "social"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "getrouwd"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "social"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "overleden"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "social"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "samenwonen"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "verhuisd"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "verjaardag"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "verkering"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "social"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "chore"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "Hygiene",
+              "administratie",
+              "boodschappen",
+              "health",
+              "huisdieren",
+              "kinderen",
+              "onderhoud",
+              "opruimen",
+              "relaties",
+              "schoonmaken",
+              "self"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "Hygiene"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "administratie"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "boodschappen"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "health"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "huisdieren"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "kinderen"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "onderhoud"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "opruimen"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "relaties"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "social"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "schoonmaken"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "self"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "context"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "project",
+              "self",
+              "work"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "project"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "self"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "work"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "work"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "entity"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "company",
+              "person",
+              "pet",
+              "place",
+              "product"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "company"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "person"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "pet"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "social"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "place"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "product"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "entry"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "daily",
+              "eod",
+              "journal",
+              "log",
+              "note",
+              "reflection",
+              "snapshot",
+              "weekly",
+              "yearly"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "daily"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "eod"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "journal"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "log"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "note"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "reflection"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "snapshot"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "weekly"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "yearly"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "health"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "bloodpressure",
+              "measurement",
+              "migraine",
+              "nutrition",
+              "symptom",
+              "weight"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "bloodpressure"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "measurement"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "migraine"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "nutrition"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "symptom"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "weight"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "interaction"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "call",
+              "chat",
+              "irl",
+              "letter",
+              "mail",
+              "meeting"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "call"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "chat"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "irl"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "letter"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "mail"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "meeting"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "work"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "project"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "client",
+              "internal",
+              "personal",
+              "project",
+              "social"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "client"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "internal"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "personal"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "project"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "social"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "social"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "purchase"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "appliances",
+              "baby",
+              "clothing",
+              "electronics",
+              "furniture",
+              "hobby",
+              "home",
+              "intimate",
+              "other",
+              "personal_care",
+              "pet",
+              "sports",
+              "subscription",
+              "vehicle"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "appliances"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "baby"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "clothing"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "electronics"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "furniture"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "hobby"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "home"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "intimate"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "other"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "personal_care"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "pet"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "sports"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "subscription"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "vehicle"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "reference"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "article",
+              "attachment",
+              "book",
+              "bookmark",
+              "channel",
+              "course",
+              "game",
+              "guide",
+              "movie",
+              "podcast",
+              "series",
+              "tool",
+              "video"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "article"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "attachment"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "book"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "bookmark"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "channel"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "course"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "game"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "social"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "guide"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "movie"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "social"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "podcast"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "series"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "social"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "tool"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "video"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "task"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "hands",
+              "home",
+              "inbox",
+              "ledger",
+              "money",
+              "screen",
+              "validation",
+              "work"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "hands"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "home"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "inbox"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "ledger"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "money"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "screen"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "self",
+                    "social",
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "validation"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "work"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "category": {
+                  "const": "work"
+                }
+              },
+              "required": [
+                "category"
+              ]
+            },
+            "then": {
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "enum": [
+                    "work"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
   "additionalProperties": true
 }

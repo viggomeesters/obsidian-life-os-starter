@@ -71,7 +71,26 @@ def json_schema_for_contract(schema: dict) -> dict:
                 if spec.get("required") or spec.get("required_new"):
                     required.append(name)
             props[name] = prop
-    props["type"] = {"type": "string", "enum": sorted(schema.get("types", {}).keys())}
+    type_names = sorted(schema.get("types", {}).keys())
+    props["type"] = {"type": "string", "enum": type_names}
+    conditionals = []
+    for note_type, spec in sorted((schema.get("types") or {}).items()):
+        categories = sorted((spec.get("categories") or {}).keys())
+        then_schema = {"properties": {"category": {"type": "string", "enum": categories}}}
+        category_conditionals = []
+        for category in categories:
+            allowed_areas = (((schema.get("type_category_area") or {}).get(note_type) or {}).get(category) or {}).get("allowed_areas") or []
+            if allowed_areas:
+                category_conditionals.append({
+                    "if": {"properties": {"category": {"const": category}}, "required": ["category"]},
+                    "then": {"properties": {"area": {"type": "string", "enum": sorted(allowed_areas)}}},
+                })
+        if category_conditionals:
+            then_schema["allOf"] = category_conditionals
+        conditionals.append({
+            "if": {"properties": {"type": {"const": note_type}}, "required": ["type"]},
+            "then": then_schema,
+        })
     return {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "https://viggomeesters.github.io/vault-schema/vault-schema.schema.json",
@@ -80,6 +99,7 @@ def json_schema_for_contract(schema: dict) -> dict:
         "type": "object",
         "required": sorted(set(required)),
         "properties": props,
+        "allOf": conditionals,
         "additionalProperties": True,
     }
 

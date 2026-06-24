@@ -3,7 +3,7 @@ VENV ?= .venv
 VENV_PYTHON := $(VENV)/bin/python
 VENV_PIP := $(VENV)/bin/pip
 
-.PHONY: check setup validate generate examples test bundle clean
+.PHONY: check setup validate generate examples test bundle note-validate compat-diff clean
 
 check: setup generate bundle validate examples test
 
@@ -25,6 +25,12 @@ examples:
 
 test:
 	$(VENV_PYTHON) tests/test_validate_repository.py
+
+note-validate:
+	$(VENV_PYTHON) scripts/validate_note.py examples/*.md
+
+compat-diff:
+	$(VENV_PYTHON) scripts/diff_schema_compatibility.py vault-schema.json vault-schema.json --format markdown
 
 clean:
 	rm -rf $(VENV) dist/vault-schema-v*.zip dist/checksums.txt

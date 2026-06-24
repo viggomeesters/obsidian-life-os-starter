@@ -8,8 +8,9 @@
 2. **Legacy/prose surfaces** — `life-os-schema.yaml` is generated for compatibility; `life-os-schema.md` explains the same model for humans.
 3. **Templates** — `templates/` contains reusable public-safe templates mirrored from the vault contract.
 4. **Examples** — `examples/` contains synthetic public-safe note fixtures, one per type.
-5. **Generated artifacts** — `dist/vault-schema.schema.json`, `docs/generated-schema-reference.md`, and `site/` are generated from the canonical JSON source.
-6. **Guard** — `scripts/validate_repository.py` and `scripts/validate_examples.py` check identity, version alignment, schema semantics, template coverage, examples, public-safety boundaries, checksums, and required repo-complete files.
+5. **Contract meta-schema** — `schema/vault-schema.contract.schema.json` validates the structure of canonical `vault-schema.json` before semantic checks run.
+6. **Generated artifacts** — `dist/vault-schema.schema.json`, `docs/generated-schema-reference.md`, and `site/` are generated from the canonical JSON source.
+7. **Guard/CLI tools** — `scripts/validate_repository.py`, `scripts/validate_examples.py`, `scripts/validate_note.py`, and `scripts/diff_schema_compatibility.py` check identity, version alignment, schema semantics, note fixtures, compatibility, public-safety boundaries, checksums, and required repo-complete files.
 
 ## Non-goals
 

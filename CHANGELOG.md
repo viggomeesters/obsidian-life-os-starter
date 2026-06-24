@@ -1,5 +1,12 @@
 # Changelog
 
+## v9.4.1 agent validation tools — 2026-06-24
+
+- Added `schema/vault-schema.contract.schema.json` to validate canonical contract shape.
+- Expanded generated note JSON Schema with type/category/area conditionals.
+- Added `scripts/validate_note.py` for Markdown frontmatter validation.
+- Added `scripts/diff_schema_compatibility.py` for schema compatibility reports.
+
 ## v9.4.1 JSON canonical migration — 2026-06-24
 
 - Made `vault-schema.json` the canonical machine-readable contract.

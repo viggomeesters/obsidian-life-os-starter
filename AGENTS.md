@@ -19,3 +19,9 @@ This repository is the public schema mirror for the structured Obsidian vault co
 3. Run `make check` before finishing.
 4. If changing schema semantics, update `versions.json`, `CHANGELOG.md`, compatibility docs, and generated artifacts.
 5. GitHub Pages is served from `main:/docs` to avoid requiring GitHub Actions; local `make check` remains the main repo-complete gate.
+
+## Tooling surfaces
+
+- `schema/vault-schema.contract.schema.json` validates the canonical contract shape.
+- `scripts/validate_note.py` validates Markdown frontmatter using the generated JSON Schema plus semantic checks.
+- `scripts/diff_schema_compatibility.py` compares schema files or `git-ref:path` inputs.
