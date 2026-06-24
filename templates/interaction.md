@@ -6,12 +6,12 @@ slug: {{slug}}
 timestamp: {{date:YYYYMMDD-HHmm}}
 area: social
 title: "{{title}}"
-topics: []
-
+topics: [interaction]
+source: manual
 entity: [{{entity}}]
-duration:
-location:
-platform:
+duration: 
+location: 
+platform: 
 ---
 
 # {{title}}

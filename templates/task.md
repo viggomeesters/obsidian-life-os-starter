@@ -7,9 +7,10 @@ timestamp: {{date:YYYYMMDD-HHmm}}
 status: 🔴 to-do
 area: work
 title: "{{title}}"
-topics: []
-
+topics: [task]
+source: manual
 project: {{project}}
+project_slug: {{project_slug}}
 entity: []
 due: {{due}}
 recurring:

@@ -13,11 +13,3 @@ week_end: <% tp.date.weekday("YYYY-MM-DD", 6) %>
 ---
 
 # Weekly Note: <% tp.date.now("YYYY-[W]ww") %>
-
-## Highlights
-
-
-## Challenges
-
-
-## Next Week

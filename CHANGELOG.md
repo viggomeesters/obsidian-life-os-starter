@@ -1,5 +1,13 @@
 # Changelog
 
+## v9.4.1 — 2026-06-24
+
+- Unarchived and rebranded the repository as `vault-schema`.
+- Restored a standalone public schema mirror instead of an archive pointer.
+- Added latest `life-os-schema.yaml` from the canonical vault contract (`version: 9.4.1`, `updated: 2026-06-08`).
+- Updated prose documentation and templates from the vault contract.
+- Added repo-complete public surface, validation guard, maintainer docs, issue/PR routing, and public-safety boundary.
+
 All notable changes to the Life OS schema are documented here.
 
 This changelog is auto-generated from the schema version history.

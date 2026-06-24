@@ -16,13 +16,13 @@ email: "{{email}}"
 address: "{{address}}"
 postal_code: "{{postal_code}}"
 city: "{{city}}"
-birthday:
+birthday: 
 company: "{{company}}"
 role: "{{role}}"
-contact_frequency:
-last_contact:
-met_who:
-contact_note:
+contact_frequency: 
+last_contact: 
+met_who: 
+contact_note: 
 ---
 
 # {{title}}

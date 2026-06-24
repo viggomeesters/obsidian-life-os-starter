@@ -1,0 +1,46 @@
+version: 1
+project: "{{PROJECT_ID}}"
+
+queue_policy:
+  primary_human_view: tasks.md
+  claim_command: "python3 scripts/next_task.py --claim --agent <agent-name>"
+  finish_command: "python3 scripts/finish_task.py {{PROJECT_CODE}}-T### \"short description\" --all"
+  lease_minutes: 60
+
+tasks:
+  - id: "{{PROJECT_CODE}}-T001"
+    goal: "{{PROJECT_CODE}}-G01"
+    title: Replace this starter task with the first concrete project task
+    status: ready
+    type: maintenance
+    priority: high
+    assignee: any
+    source:
+      - context.md
+    depends_on: []
+    blocked_by: []
+    scope:
+      read:
+        - AGENTS.md
+        - context.md
+      modify:
+        - tasks.md
+        - changelog.md
+      do_not_touch:
+        - sources/
+    acceptance:
+      - Task outcome is concrete and verifiable.
+      - Follow-up tasks are captured when discovered.
+    verification:
+      commands:
+        - "python3 scripts/finish_task.py {{PROJECT_CODE}}-T001 \"starter task\" --all"
+    docs:
+      check:
+        - README.md
+        - AGENTS.md
+      update:
+        - tasks.md
+        - changelog.md
+    commit:
+      mode: task
+      message: "{{PROJECT_CODE}}-T001: starter task"

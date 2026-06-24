@@ -1,0 +1,11 @@
+.DS_Store
+config.local.yaml
+
+__pycache__/
+*.py[cod]
+
+# Hermes orchestration runtime state
+.hermes/runs/*
+!.hermes/runs/.gitkeep
+.hermes/state/*
+!.hermes/state/.gitkeep

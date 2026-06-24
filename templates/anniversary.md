@@ -1,6 +1,6 @@
 ---
 type: anniversary
-category: birthday
+category: verjaardag
 created: {{date:YYYY-MM-DD}}
 slug: {{slug}}
 timestamp: {{date:YYYYMMDD-HHmm}}
@@ -11,6 +11,8 @@ topics: []
 date: {{date:YYYY-MM-DD}}
 entity: [{{entity}}]
 recurring: 365
+enable_admin_notifications: true
+enable_congratulation_notifications: false
 ---
 
 # {{title}}

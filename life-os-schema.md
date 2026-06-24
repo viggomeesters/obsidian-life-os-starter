@@ -1,6 +1,6 @@
-# Life OS Schema v8.5
+# Life OS Schema v9.4.0
 
-This document defines the unified data model for the Life OS platform. It serves as the **Single Source of Truth** for how notes are structured, categorized, and linked across the vault.
+This document defines the unified data model for the Life OS platform. It is the prose companion to `system/contracts/life-os-schema.yaml`, the machine-readable source of truth for how notes are structured, categorized, and linked across the vault.
 
 ## Design Principles
 
@@ -13,21 +13,39 @@ This document defines the unified data model for the Life OS platform. It serves
 
 ## Folder Structure
 
-Most notes live in `10_notes/` (flat). Special note types have dedicated folders in `20_structure/02_context/`:
+New markdown notes are written directly to their canonical schema location when classification is clear. `00_inbox/` remains only as a legacy/quarantine buffer for captures that cannot yet be classified safely or when the user explicitly asks for inbox placement:
 
 | Folder | Purpose | Contents |
 |--------|---------|----------|
-| `10_notes/` | All general notes | Entries, tasks, interactions, references |
-| `02_context/entity/` | Tracked entities | People, pets, companies, products |
-| `02_context/anniversaries/` | Recurring events | Birthdays, weddings, adoptions |
-| `02_context/projects/` | Active projects | Code repos, personal projects |
-| `02_context/chores/` | Recurring chores | Household tasks with frequency tracking |
+| `00_inbox/` | Legacy/quarantine buffer | Unclassifiable captures or explicit inbox placement only |
+| `10_notes/YYYY-MM/` | Chronological notes | Entries, tasks, interactions, references, purchases, health |
+| `20_files/YYYY-MM/` | Documents and data files | Attachments, exports, source files |
+| `30_media/YYYY-MM/` | Binary media | Images, audio, video |
+| `system/entities/` | Tracked entities | People, pets, companies, products, places |
+| `system/anniversaries/` | Recurring events | Birthdays, weddings, adoptions |
+| `system/projects/` | Active projects | Code repos, client work, personal projects |
+| `system/chores/` | Recurring chores | Household tasks with frequency tracking |
+| `system/context/` | Stable context docs | Profile, principles, system context |
+| `system/contracts/` | Machine-readable contracts | Schema, automation registry, vision source, scorecards |
 
 **Why separate folders?**
+- **Inbox**: Legacy/quarantine buffer. New notes should not start here when type/category/location are clear.
 - **Entity**: Queried by PRM for contact management
 - **Anniversaries**: Special MM-DD filename for calendar sorting
 - **Projects**: Linked from tasks, contain roadmaps
 - **Chores**: Recurring household tasks, separate from one-time tasks
+
+### Note Intake Lifecycle
+
+By default, new markdown notes are created directly at the canonical location declared in `life-os-schema.yaml` under `types.*.location`. The note must use the final filename pattern immediately and must be linked from the daily note `## Log`. `00_inbox/` is only for legacy/quarantine captures where classification is not safe yet.
+
+Exceptions:
+- Updates to existing notes stay in place
+- Daily note log updates are written directly to the daily note
+- Daily operational records such as `entry:daily` and `entry:eod` may be written directly to `10_notes/YYYY-MM/`
+- Schema, contract, and agent-instruction edits are written directly to `system/`
+- Legacy/quarantine captures may still use `00_inbox/`
+- Explicit migrations may move old inbox notes to canonical locations
 
 ---
 
@@ -55,7 +73,7 @@ Most notes live in `10_notes/` (flat). Special note types have dedicated folders
 
 | Field | Type | Question | Example |
 |-------|------|----------|---------|
-| `area` | String | Which life domain? | `work`, `personal`, `household` |
+| `area` | String | Which life domain? | `work`, `self`, `home` |
 | `project` | String | Belongs to which project? | `bookmark-manager` |
 | `entity` | Array | Linked to whom/what? | `[john-doe, acme-corp]` |
 | `topics` | Array | Discovery keywords? | `[raycast, typescript]` |
@@ -76,19 +94,19 @@ Defined per type in the Categories section below.
 
 ## Types (11 Core Types)
 
-| Type | Purpose | Location | Commands |
-|------|---------|----------|----------|
-| `entity` | People, pets, companies, products | `02_context/entity/` | Contacts, Contact Insights, Life OS Config |
-| `interaction` | Calls, IRL, chats, mail | `10_notes/` | Log Interaction, Save (mail/chat), Import Calendar |
-| `purchase` | Buying things with amount tracking | `10_notes/` | New Note, Purchases |
-| `anniversary` | Recurring dates (birthdays, weddings) | `02_context/anniversaries/` | Anniversaries |
-| `health` | Health tracking (migraine, weight, blood pressure, nutrition) | `10_notes/` | Log Health, Health Dashboard |
-| `entry` | Journals, notes, reflections | `10_notes/` | New Note, Daily Note |
-| `task` | Actions to complete | `10_notes/` | New Task, Task Inbox, Task Overview, Today's Focus |
-| `project` | Container for tasks | `02_context/projects/` | Projects, Task Overview |
-| `reference` | Bookmarks, articles, books, etc. | `10_notes/` | Save (bookmark), References |
-| `chore` | Recurring household tasks | `02_context/chores/` | Chores |
-| `context` | Personal context docs (identity, history, mindset) | `02_context/self/` | AI agents |
+| Type          | Purpose                                                       | Location                    | Commands                                           |
+| ------------- | ------------------------------------------------------------- | --------------------------- | -------------------------------------------------- |
+| `entity`      | People, pets, companies, products                             | `system/entities/`          | Contacts, Contact Insights, Life OS Config         |
+| `interaction` | Calls, IRL, chats, mail                                       | `10_notes/YYYY-MM/`         | Log Interaction, Save (mail/chat), Import Calendar |
+| `purchase`    | Buying things with amount tracking                            | `10_notes/YYYY-MM/`         | New Note, Purchases                                |
+| `anniversary` | Recurring dates (birthdays, weddings)                         | `system/anniversaries/`     | Anniversaries                                      |
+| `health`      | Health tracking (migraine, weight, blood pressure, nutrition) | `10_notes/YYYY-MM/`         | Log Health, Health Dashboard                       |
+| `entry`       | Journals, notes, reflections                                  | `10_notes/YYYY-MM/`         | New Note, Daily Note                               |
+| `task`        | Actions to complete                                           | `10_notes/YYYY-MM/`         | New Task, Task Inbox, Task Overview, Today's Focus |
+| `project`     | Container for tasks                                           | `system/projects/`          | Projects, Task Overview                            |
+| `reference`   | Bookmarks, articles, books, etc.                              | `10_notes/YYYY-MM/`         | Save (bookmark), References                        |
+| `chore`       | Recurring household tasks                                     | `system/chores/`            | Chores                                             |
+| `context`     | Personal context docs (identity, history, mindset)            | `system/context/`           | AI agents                                          |
 
 ### Type Separation
 
@@ -134,7 +152,8 @@ Defined per type in the Categories section below.
 | | `met_who`, `known_from` | String | Entity slugs |
 | | `relations[]` | Array | `{label, name, entity_slug}` |
 | **PRM Only** | `contact_frequency` | Number | Days between contacts |
-| | `last_contact`, `contact_note` | String | Contact tracking |
+| | `contact_note` | String | Contact tracking note |
+| | ~~`last_contact`~~ | — | *Removed: derived from `MAX(interaction.created)` via SQLite* |
 | **Apple Only** | `apple_note` | String | Note from Apple Contacts |
 | | `contact_image_path` | String | Path to contact photo |
 | **Sync Meta** | `sync.last_synced` | ISO Date | Last sync timestamp |
@@ -211,7 +230,7 @@ Common fields: `amount` (required), `currency` (default EUR), `store`, `url`
 
 ### `anniversary`
 
-Anniversaries are recurring dates, stored in `02_context/anniversaries/`.
+Anniversaries are recurring dates, stored in `system/anniversaries/`.
 
 | Category | Dutch | Description | Specific Fields |
 |----------|-------|-------------|-----------------|
@@ -252,6 +271,8 @@ Common fields: `date` (measurement date), `notes`
 | Category | Description | Specific Fields |
 |----------|-------------|-----------------|
 | `daily` | Daily journal | - |
+| `eod` | End-of-day operational review | capacity, output, bottlenecks, follow-ups, leverage action |
+| `journal` | Free-form journal entry | - |
 | `weekly` | Weekly review | `week_start`, `week_end` |
 | `yearly` | Yearly review | `year` |
 | `note` | General note | - |
@@ -265,10 +286,11 @@ Task categories are **resource-based** ("What do I need?"), while `area` defines
 
 | Category | Resource | Examples |
 |----------|----------|----------|
-| `people` | Human contact needed | Bel tandarts, mail klant, vergadering |
-| `money` | Spending required | Bestel monitor, boek hotel, betaal rekening |
+| `inbox` | Triage needed / uncategorized | Nog te classificeren taak |
 | `screen` | Computer/digital work | Fix bug, schrijf rapport, research laptops |
+| `money` | Spending required | Bestel monitor, boek hotel, betaal rekening |
 | `hands` | Physical/manual work | Schuur opruimen, fiets repareren, was ophangen |
+| `ledger` | AI-generated | Audit findings, /ledger tasks, automated workflows |
 
 Common fields: `due`, `recurring`, `area`, `project`
 
@@ -350,7 +372,7 @@ Common fields: `url`, `rating`, `consumed`
 
 ### `chore`
 
-Chores are recurring items stored in `02_context/chores/`. Each chore has a `nature` that defines its purpose.
+Chores are recurring items stored in `system/chores/`. Each chore has a `nature` that defines its purpose.
 
 #### Nature
 
@@ -386,7 +408,10 @@ Chores are recurring items stored in `02_context/chores/`. Each chore has a `nat
 |-------|------|----------|-------------|
 | `nature` | String | Yes | `obligation`, `routine`, or `invest` |
 | `frequency` | Number | Yes | Days between occurrences (1=daily, 7=weekly, 30=monthly) |
+| `active` | Boolean | No | Whether this chore is included in Viggo's active chore tracking loop. `false` chores stay in the vault but are hidden from active views/scripts. |
+| `last_done` | Date | No | Last completion date, persisted for views and scripts. Updated by completion scripts. |
 | `duration` | Number | No | Time estimate in minutes |
+| `snoozed_until` | Date | No | Hide from active chore views until this date |
 | `time_hint` | String | No | Computed start time within routine (`"06:00"`, `"17:25"`). **Derived value** — written by dashboard on reorder, not manually edited. |
 | `parent` | String | No | Slug of parent routine (for habit stacking) |
 | `entity` | Array | No | Who can do / is involved (person slugs) |
@@ -433,7 +458,7 @@ Did extra deep clean
 **Format:** `## ✅ YYYY-MM-DD - {entity-slug} ({duration} min)` or `## ✅ YYYY-MM-DD` (minimal)
 
 The system parses these headers to calculate:
-- Last done date and by whom
+- Last done date and by whom. `last_done` is also persisted in frontmatter for daily snapshots and scripts; the completion headers remain the history source.
 - Days since last completion
 - Days overdue (when frequency is set)
 - Current streak (consecutive on-time completions)
@@ -459,7 +484,7 @@ Areas provide context for WHERE something belongs in your life:
 ```
 area:     WHERE in your life  →  work, home, self, social
 type:     WHAT kind of thing  →  task, anniversary, entity
-category: WHICH variant       →  people, money, screen, hands, admin (for tasks)
+category: WHICH variant       →  people, money, screen, hands, ledger (for tasks)
 topics:   DISCOVERY keywords  →  raycast, typescript, review
 ```
 
@@ -542,13 +567,13 @@ YYYYMMDD-HHmm-slug.md
 
 | Type | Location | Pattern | Example |
 |------|----------|---------|---------|
-| `entity` | `02_context/entity/` | `{slug}.md` | `john-doe.md` |
-| `project` | `02_context/projects/` | `YYYY-MM-slug.md` | `2026-01-bookmark-manager.md` |
-| `anniversary` | `02_context/anniversaries/` | `{MM-DD}-{category}-{entity}.md` | `01-15-verjaardag-john-doe.md` |
-| `chore` | `02_context/chores/` | `{category}-{frequency}-{slug}.md` | `schoonmaken-7-badkamer.md` |
-| All others | `10_notes/` | `YYYYMMDD-HHmm-slug.md` | `20260202-1555-bella-chip-activeren.md` |
+| `entity` | `system/entities/` | `{slug}.md` | `john-doe.md` |
+| `project` | `system/projects/` | `YYYY-MM-slug.md` | `2026-01-bookmark-manager.md` |
+| `anniversary` | `system/anniversaries/` | `{MM-DD}-{category}-{entity}.md` | `01-15-verjaardag-john-doe.md` |
+| `chore` | `system/chores/` | `{category}-{frequency}-{slug}.md` | `schoonmaken-7-badkamer.md` |
+| All others | `10_notes/YYYY-MM/` | `YYYYMMDD-HHmm-slug.md` | `20260202-1555-bella-chip-activeren.md` |
 
-**Context files** (in `02_context/`) don't need timestamps — they're reference documents, not timestamped notes.
+**System files** (in `system/`) don't need timestamps — they're reference documents, not timestamped notes.
 
 ---
 
@@ -723,13 +748,14 @@ category: electronics  # or appliances, furniture, clothing, baby, home, sports,
 created: YYYY-MM-DD
 slug: product-name
 timestamp: YYYYMMDD-HHmm
-area: personal  # or household, work
+area: self  # or home, work
 title: "Product Name"
 amount: 99.00  # Required
 currency: EUR
 brand: "..."
 model: "..."
 store: "..."
+condition: new  # new | secondhand | refurbished (default: new)
 url: "..."
 warranty_until: YYYY-MM-DD
 ```
@@ -767,7 +793,7 @@ timestamp: YYYYMMDD-HHmm     # when this note was created
 area: health
 title: "Migraine — Matige migraine"
 date: YYYY-MM-DD              # the migraine day
-pain_level: 🟡 mild  # 🟢 none | 🔵 tension | 🟡 mild | 🟠 moderate | 🔴 severe
+pain_level: 🟠 mild  # 🟢 none | 🔵 tension | 🟠 mild | 🔴 severe
 triggers: [slaap]  # slaap, stress, weer, eten, griep, scherm, alcohol, geur, voedsel, licht, sport
 meds: [Rizatriptan 5mg]  # Paracetamol 1000mg, Rizatriptan 5mg, Ibuprofen 400mg
 preventive: Metoprolol 100mg
@@ -827,10 +853,35 @@ deficit: 0       # kcal (negative = surplus)
 type: entry
 category: daily
 created: YYYY-MM-DD
-slug: YYYYMMDD_daily_note
+slug: YYYYMMDD-HHmm-daily
 timestamp: YYYYMMDD-HHmm
-area: personal
+area: self
 title: "Daily Note"
+```
+
+#### End-of-Day Review
+```yaml
+type: entry
+category: eod
+created: YYYY-MM-DD
+slug: YYYYMMDD-HHmm-eod
+timestamp: YYYYMMDD-HHmm
+area: self
+title: "EOD"
+topics: [eod, capacity, focus, bottlenecks]
+source: manual
+```
+
+#### Journal
+```yaml
+type: entry
+category: journal
+created: YYYY-MM-DD
+slug: YYYYMMDD-HHmm-journal
+timestamp: YYYYMMDD-HHmm
+area: self
+title: "Journal"
+topics: []
 ```
 
 #### Note
@@ -840,7 +891,7 @@ category: note
 created: YYYY-MM-DD
 slug: note-title
 timestamp: YYYYMMDD-HHmm
-area: personal  # or work
+area: self  # or work
 title: "Note Title"
 topics: []
 ```
@@ -848,7 +899,7 @@ topics: []
 ### Task Template
 ```yaml
 type: task
-category: screen  # or people, money, hands, admin
+category: screen  # or people, money, hands, ledger
 created: YYYY-MM-DD
 slug: action-description
 timestamp: YYYYMMDD-HHmm
@@ -868,6 +919,7 @@ category: personal  # or client, internal
 created: YYYY-MM-DD
 slug: project-name
 code: P-NAME  # Optional abbreviation
+mail_codes: []  # Optional mail detection aliases/codes
 timestamp: YYYYMMDD-HHmm
 status: 🟠 in progress
 area: work  # or home, self, social
@@ -900,7 +952,7 @@ created: YYYY-MM-DD
 slug: title
 timestamp: YYYYMMDD-HHmm
 status: 🟣 backlog  # or 🟠 in progress, 🟢 done
-area: personal
+area: self
 title: "Title"
 author: "..."  # or director, host
 url: "..."
@@ -957,6 +1009,12 @@ Optional completion note
 
 | Version | Date | Changes |
 |---------|------|---------|
+| v9.4.0 | 2026-06-05 | Added vault-workflow anchors, canonical direct-write lifecycle, source/source_id/thread_id fields, `system/indexes/`, and `00_inbox/` as legacy/quarantine instead of default intake. |
+| v9.3.4 | 2026-06-01 | Added `entry:eod` for end-of-day operational reviews. EOD notes may be written directly to `10_notes/YYYY-MM/` as daily operational timeline records and can feed morning briefs, metrics extraction, and AI context. |
+| v9.3.2 | 2026-05-20 | Changed the note intake lifecycle: new markdown notes are created in `00_inbox/` and remain there by default; promotion happens only on explicit request or explicit migration/promotion runs. |
+| v9.3.1 | 2026-05-05 | Added the note intake lifecycle: new markdown notes are created in `00_inbox/` first, then promoted to the canonical schema location after classification and validation. |
+| v9.3 | 2026-05-05 | Made `life-os-schema.yaml` the explicit source of truth. Added `entry: journal` for free-form journal entries. Filled missing machine-readable category declarations for entries, interactions, purchases, health records, projects, and references to prevent prose/YAML drift. |
+| v9.2 | 2026-04-25 | Fixed schema parser mismatch: all `reference` (.md) notes are placed in `10_notes/`, ensuring `20_files/` remains exclusively for binary/external assets. |
 | v8.5 | 2026-03-09 | Added optional `scheduled` field to tasks. Format: `"YYYY-MM-DD HH:MM-HH:MM"`. Enables time-block scheduling via dashboard calendar week view drag-and-drop. Separate from `due` (deadline) — `scheduled` is when you plan to work on it. |
 | v8.4 | 2026-03-09 | Added `channel` category to `reference` type for YouTube/Twitch channel subscriptions. Fields: `platform`, `thumbnail`, `subscribed`. Dashboard tab for channel management. |
 | v8.3 | 2026-03-08 | Renamed `effort` → `duration` on chores for consistency between frontmatter and dashboard. `time_hint` is now a derived value — computed by dashboard drag-and-drop reorder based on routine start time + cumulative duration. Migrated 102 chore notes. |

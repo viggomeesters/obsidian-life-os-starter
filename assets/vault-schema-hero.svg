@@ -1,0 +1,29 @@
+<svg width="1000" height="360" viewBox="0 0 1000 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Vault Schema</title>
+  <desc id="desc">A compact diagram showing schema contract, templates, validation, and vault write locations.</desc>
+  <rect width="1000" height="360" rx="34" fill="#0B1020"/>
+  <circle cx="880" cy="70" r="140" fill="#2DD4BF" opacity="0.12"/>
+  <circle cx="110" cy="310" r="170" fill="#8B5CF6" opacity="0.13"/>
+  <g stroke="#24324D" stroke-width="1">
+    <path d="M80 80H920"/><path d="M80 140H920"/><path d="M80 200H920"/><path d="M80 260H920"/>
+    <path d="M160 40V320"/><path d="M320 40V320"/><path d="M480 40V320"/><path d="M640 40V320"/><path d="M800 40V320"/>
+  </g>
+  <text x="74" y="96" fill="#F8FAFC" font-family="Inter, ui-sans-serif, system-ui" font-size="54" font-weight="800">Vault Schema</text>
+  <text x="78" y="137" fill="#A7B3C8" font-family="Inter, ui-sans-serif, system-ui" font-size="22">Machine-readable vault contract · v9.4.1</text>
+  <g transform="translate(78 178)">
+    <rect width="238" height="104" rx="20" fill="#111A2E" stroke="#334155"/>
+    <text x="24" y="42" fill="#5EEAD4" font-family="Inter, ui-sans-serif, system-ui" font-size="18" font-weight="700">YAML contract</text>
+    <text x="24" y="74" fill="#CBD5E1" font-family="Inter, ui-sans-serif, system-ui" font-size="30" font-weight="800">11 types</text>
+  </g>
+  <g transform="translate(352 178)">
+    <rect width="238" height="104" rx="20" fill="#111A2E" stroke="#334155"/>
+    <text x="24" y="42" fill="#C4B5FD" font-family="Inter, ui-sans-serif, system-ui" font-size="18" font-weight="700">Templates</text>
+    <text x="24" y="74" fill="#CBD5E1" font-family="Inter, ui-sans-serif, system-ui" font-size="30" font-weight="800">46 files</text>
+  </g>
+  <g transform="translate(626 178)">
+    <rect width="296" height="104" rx="20" fill="#111A2E" stroke="#334155"/>
+    <text x="24" y="42" fill="#93C5FD" font-family="Inter, ui-sans-serif, system-ui" font-size="18" font-weight="700">Validation guard</text>
+    <text x="24" y="74" fill="#CBD5E1" font-family="Inter, ui-sans-serif, system-ui" font-size="30" font-weight="800">make check</text>
+  </g>
+  <text x="78" y="320" fill="#64748B" font-family="Inter, ui-sans-serif, system-ui" font-size="16">Public schema mirror — no private vault notes, indexes, exports, or attachments.</text>
+</svg>

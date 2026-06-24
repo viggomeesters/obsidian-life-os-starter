@@ -8,13 +8,13 @@ area: home
 title: "{{title}}"
 topics: []
 
-amount:
+amount: 
 currency: EUR
-brand:
-model:
-store:
-url:
-warranty_until:
+brand: 
+model: 
+store: 
+url: 
+warranty_until: 
 entity: []
 ---
 

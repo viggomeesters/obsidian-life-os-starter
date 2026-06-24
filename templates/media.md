@@ -8,10 +8,10 @@ area: self
 title: "{{title}}"
 topics: []
 
-author:
-url:
-rating:
-consumed:
+author: 
+url: 
+rating: 
+consumed: 
 ---
 
 # {{title}}

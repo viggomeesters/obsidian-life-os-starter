@@ -14,24 +14,24 @@ topics:
 
 ## Context
 
-What was the situation? Why did a decision need to be made?
+Wat was de situatie? Waarom moest er een beslissing genomen worden?
 
-## Alternatives
+## Alternatieven
 
-| Option | Pro | Con |
-|--------|-----|-----|
-| **Chosen →** | | |
-| Alternative 1 | | |
-| Alternative 2 | | |
+| Optie | Pro | Con |
+|-------|-----|-----|
+| **Gekozen →** | | |
+| Alternatief 1 | | |
+| Alternatief 2 | | |
 
-## Decision
+## Beslissing
 
-What was chosen and why?
+Wat is gekozen en waarom?
 
-## Expected Outcome
+## Verwacht resultaat
 
-What do you expect to happen?
+Wat verwacht je dat er gaat gebeuren?
 
 ## Review
 
-> Fill in after 3-6 months: was this the right choice?
+> Vul in na 3-6 maanden: was dit de juiste keuze?

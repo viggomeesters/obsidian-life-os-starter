@@ -1,6 +1,9 @@
 {
-  "schema": "v8.4",
+  "schema": "v9.4.1",
+  "version": "9.4.1",
+  "updated": "2026-06-08",
   "types": 11,
-  "templates": 15,
-  "updated": "2026-03-09"
+  "templates": 46,
+  "source": "system/contracts/life-os-schema.yaml",
+  "public_repository": "https://github.com/viggomeesters/vault-schema"
 }

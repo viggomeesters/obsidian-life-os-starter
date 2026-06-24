@@ -1,0 +1,279 @@
+version: 1
+project:
+  id: "{{PROJECT_ID}}"
+  name: "{{PROJECT_NAME}}"
+  purpose: "{{PROJECT_PURPOSE}}"
+  required_root_files:
+    - .gitignore
+    - AGENTS.md
+    - README.md
+    - schema.yaml
+    - config.yaml
+    - context.md
+    - tasks.md
+    - changelog.md
+    - .hermes/project.md
+    - .hermes/task-schema.yaml
+    - .hermes/tasks.yaml
+    - .hermes/agents/worker-prompt.md
+    - .hermes/agents/reviewer-prompt.md
+  folders:
+    sources:
+      purpose: External source material received or captured for the project
+      allowed_types:
+        - meeting
+        - mail
+        - document
+        - data
+        - note
+    work:
+      purpose: Internal analysis, research, decisions, drafts, and working notes
+      allowed_types:
+        - research
+        - analysis
+        - decision
+        - mapping
+        - scratch
+        - note
+        - glossary
+    output:
+      purpose: Outward-facing deliverables and exports
+      allowed_types:
+        - deliverable
+        - report
+        - export
+        - mail-draft
+
+config_yaml:
+  required_keys:
+    - project
+    - paths.dev_folder
+    - paths.vault_project_note
+    - paths.vault_entity_note
+    - paths.schema
+    - paths.agents
+    - paths.readme
+    - paths.context
+    - paths.tasks
+    - paths.changelog
+    - paths.glossary
+    - paths.finish_task
+    - paths.next_task
+    - paths.hermes_tasks
+    - paths.hermes_task_schema
+    - paths.hermes_project
+    - paths.git_hooks
+    - paths.sources
+    - paths.work
+    - paths.output
+    - tools.template
+    - tools.initializer
+    - tools.validator
+
+naming:
+  markdown_files: YYYY-MM-DD-kebab-case-title.md
+  binary_files: YYYY-MM-DD-kebab-case-title.ext
+  root_files:
+    - AGENTS.md
+    - README.md
+    - schema.yaml
+    - config.yaml
+    - context.md
+    - tasks.md
+    - changelog.md
+
+markdown_frontmatter:
+  required:
+    - type
+    - project
+    - created
+    - processed
+  optional:
+    - source_date
+    - status
+    - entity
+    - topics
+    - related
+    - file
+    - summary
+  rules:
+    project: must equal "{{PROJECT_ID}}"
+    processed: boolean
+    created: YYYY-MM-DD
+    source_date: YYYY-MM-DD when the source event or document date is known
+    entity: array of slugs
+    topics: array of kebab-case terms
+    related: array of filenames, slugs, or stable identifiers
+
+root_documents:
+  context.md:
+    purpose: Current compressed project truth
+    frontmatter:
+      required: [type, project, created, processed]
+      type: context
+  tasks.md:
+    purpose: Active project work queue
+    frontmatter: optional
+    format_ref: tasks_md
+  changelog.md:
+    purpose: Meaningful project history
+    frontmatter: optional
+    format_ref: changelog_md
+
+hermes:
+  required_files:
+    - .hermes/project.md
+    - .hermes/task-schema.yaml
+    - .hermes/tasks.yaml
+    - .hermes/agents/worker-prompt.md
+    - .hermes/agents/reviewer-prompt.md
+  status_values: [todo, ready, claimed, active, waiting, review, done, cancelled]
+  guarded_statuses: [claimed, active, review]
+  required_task_fields:
+    - id
+    - goal
+    - title
+    - status
+    - type
+    - priority
+    - scope
+    - acceptance
+    - verification
+    - docs
+    - commit
+  concurrency_rule: Guarded tasks may not modify overlapping paths unless one explicitly depends on the other.
+
+task_completion:
+  rule: Commit each completed task separately after validation.
+  finish_script: scripts/finish_task.py
+  git_hooks: .githooks
+  commit_message: "{{PROJECT_CODE}}-T###: short description"
+  machine_task_queue: .hermes/tasks.yaml
+  notes:
+    - Claim work through `scripts/next_task.py --claim --agent <agent>` before editing when `.hermes/tasks.yaml` exists.
+    - Keep the task under its goal, check it, set status to done, and add done date and evidence before running the finish script.
+    - When a task exists in `.hermes/tasks.yaml`, set its status to done and add evidence before running the finish script.
+    - Run the validator before committing.
+    - Use --all to stage the full workspace intentionally; otherwise commit only pre-staged files.
+    - Avoid batching multiple completed tasks into one commit unless the changes are inseparable.
+
+sidecars:
+  rule: Binary files in sources should have a markdown sidecar when metadata, summary, or processing state matters.
+  naming: Same basename as binary file with .md extension.
+  required_frontmatter: [type, project, created, processed, file]
+
+types:
+  meeting:
+    folder: sources
+    required_frontmatter: [type, project, created, processed, source_date]
+  mail:
+    folder: sources
+    required_frontmatter: [type, project, created, processed, source_date]
+  document:
+    folder: sources
+    required_frontmatter: [type, project, created, processed]
+  data:
+    folder: sources
+    required_frontmatter: [type, project, created, processed]
+  note:
+    folder: sources
+    required_frontmatter: [type, project, created, processed]
+  research:
+    folder: work
+    required_frontmatter: [type, project, created, processed]
+  analysis:
+    folder: work
+    required_frontmatter: [type, project, created, processed]
+  decision:
+    folder: work
+    required_frontmatter: [type, project, created, processed]
+  mapping:
+    folder: work
+    required_frontmatter: [type, project, created, processed]
+  scratch:
+    folder: work
+    required_frontmatter: [type, project, created, processed]
+  glossary:
+    folder: work
+    required_frontmatter: [type, project, created, processed]
+  deliverable:
+    folder: output
+    required_frontmatter: [type, project, created, processed, status]
+  report:
+    folder: output
+    required_frontmatter: [type, project, created, processed, status]
+  export:
+    folder: output
+    required_frontmatter: [type, project, created, processed, status]
+  mail-draft:
+    folder: output
+    required_frontmatter: [type, project, created, processed, status]
+
+tasks_md:
+  layout: goal_first
+  goal_heading: "## {{PROJECT_CODE}}-G##: Goal name"
+  goal_meta_line: "outcome: concrete outcome | owner: role/name | target: YYYY-MM-DD"
+  goal_deliverables_line: "deliverables: artifact 1; artifact 2; artifact 3"
+  task_line: "- [ ] {{PROJECT_CODE}}-T###: Description | status: todo | start: YYYY-MM-DD | deadline: YYYY-MM-DD | source: `path-or-source-id`"
+  waiting_line: "- [ ] {{PROJECT_CODE}}-T###: Description | status: waiting | waiting: reason | source: `path-or-source-id`"
+  done_line: "- [x] {{PROJECT_CODE}}-T###: Description | status: done | done: YYYY-MM-DD | evidence: `path-or-command-or-commit`"
+  rules:
+    - Use H2 goal headings as the primary task structure.
+    - Each goal should include an outcome line and a deliverables line before task lines.
+    - Use deliverables to name concrete artifacts, decisions, registers, matrices, trackers, runbooks, or outputs that prove the goal is complete.
+    - Keep tasks under their goal for their full lifecycle; do not move completed tasks to a separate Done section.
+    - Use status metadata on each task line: todo, active, waiting, done, or cancelled.
+    - Sort tasks chronologically by task id within each goal.
+    - Add new tasks under the relevant goal unless the user explicitly asks for a new goal.
+    - Keep task ids stable after creation.
+    - If a task does not fit an existing goal, create or adjust the goal before adding the task.
+    - Add short context links or filenames after the description when useful.
+    - New follow-up tasks created from a document must include source with the originating document path.
+    - New follow-up tasks should include start and deadline when timing can be reasonably determined from project planning or the source document.
+    - Use explicit ISO dates for task start and deadline fields.
+    - If dates are unknown, omit them or use status waiting with the missing planning input in waiting.
+    - Done tasks must include completion date and evidence.
+    - Evidence must be concrete: a commit hash, command result, file path, validator output, or source note.
+    - Each completed task should be committed separately with the task id in the commit message.
+    - Keep the project glossary current when new recurring terms, abbreviations, systems, objects, people, or domain concepts appear.
+  post_document_task_extraction:
+    rule: After creating or substantially updating any work or output document, scan it for actionable follow-ups and create tasks before closing the document task.
+    scan_for:
+      - actions
+      - blockers
+      - decisions needed
+      - owners
+      - dependencies
+      - dates
+      - unanswered questions
+    required_metadata:
+      - source
+    recommended_metadata:
+      - start
+      - deadline
+
+changelog_md:
+  entry_heading: "## YYYY-MM-DD"
+  allowed_labels:
+    - Added
+    - Changed
+    - Processed
+    - Decided
+    - Archived
+  rules:
+    - Log meaningful project changes, processed sources, decisions, and structure changes.
+    - Do not log every tiny typo fix.
+    - Newest date sections go above older sections.
+
+context_md:
+  sections:
+    - Snapshot
+    - Current Focus
+    - Known Context
+    - Stakeholders
+    - Open Questions
+    - Important Files
+  rules:
+    - Keep concise and current.
+    - Update after processing sources or making decisions.
+    - Prefer links to files over copying long source content.

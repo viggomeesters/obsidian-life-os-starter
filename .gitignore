@@ -1,2 +1,27 @@
+# OS/editor
 .DS_Store
-Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Runtime/private artifacts — never commit vault indexes or exports
+*.db
+*.sqlite
+*.sqlite3
+*.duckdb
+*.parquet
+*.mbox
+telegram-export*/
+gmail-export*/
+imap-cache*/
+vault-index*/
+.cache/
+dist/
+build/

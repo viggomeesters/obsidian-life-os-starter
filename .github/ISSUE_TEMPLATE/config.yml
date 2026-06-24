@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Public safety boundary
+    url: https://github.com/viggomeesters/vault-schema/blob/main/SECURITY.md
+    about: Do not include private vault notes, exports, chats, emails, indexes, or attachments.

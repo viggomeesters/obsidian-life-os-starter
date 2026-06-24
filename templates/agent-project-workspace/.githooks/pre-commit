@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+set -eu
+
+ROOT="$(git rev-parse --show-toplevel)"
+VALIDATOR="{{VAULT_PATH}}/system/scripts/agent_project_workspace/validate_agent_project_workspace.py"
+
+python3 "$VALIDATOR" "$ROOT"
