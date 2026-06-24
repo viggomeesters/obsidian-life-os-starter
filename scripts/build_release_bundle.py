@@ -10,7 +10,7 @@ DIST = ROOT / "dist"
 SCHEMA = json.loads((ROOT / "vault-schema.json").read_text(encoding="utf-8"))
 VERSION = SCHEMA["version"]
 FILES = [
-    "README.md", "CHANGELOG.md", "LICENSE", "vault-schema.json", "schema/vault-schema.contract.schema.json", "life-os-schema.yaml", "life-os-schema.md", "versions.json",
+    "README.md", "CHANGELOG.md", "LICENSE", "requirements.txt", "vault-schema.json", "schema/vault-schema.contract.schema.json", "life-os-schema.yaml", "life-os-schema.md", "versions.json",
     "dist/vault-schema.schema.json", "docs/generated-schema-reference.md", "docs/compatibility/v9.4.1.md",
     "scripts/validate_note.py", "scripts/diff_schema_compatibility.py",
 ]
