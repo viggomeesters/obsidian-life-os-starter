@@ -131,12 +131,24 @@ def main() -> None:
     schema = load_schema()
     DIST.mkdir(exist_ok=True)
     SITE.mkdir(exist_ok=True)
+    docs_dir = ROOT / "docs"
+    docs_dir.mkdir(exist_ok=True)
     json_schema = json_schema_for_contract(schema)
-    (DIST / "vault-schema.schema.json").write_text(json.dumps(json_schema, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    (ROOT / "docs" / "generated-schema-reference.md").write_text(markdown_tables(schema), encoding="utf-8")
-    (SITE / "index.html").write_text(site_index(schema), encoding="utf-8")
-    (SITE / "vault-schema.schema.json").write_text(json.dumps(json_schema, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    (SITE / "generated-schema-reference.md").write_text((ROOT / "docs" / "generated-schema-reference.md").read_text(encoding="utf-8"), encoding="utf-8")
+    json_schema_text = json.dumps(json_schema, indent=2, ensure_ascii=False) + "\n"
+    generated_reference = markdown_tables(schema)
+    site_html = site_index(schema)
+
+    (DIST / "vault-schema.schema.json").write_text(json_schema_text, encoding="utf-8")
+    (docs_dir / "generated-schema-reference.md").write_text(generated_reference, encoding="utf-8")
+
+    (SITE / "index.html").write_text(site_html, encoding="utf-8")
+    (SITE / "vault-schema.schema.json").write_text(json_schema_text, encoding="utf-8")
+    (SITE / "generated-schema-reference.md").write_text(generated_reference, encoding="utf-8")
+    (SITE / ".nojekyll").write_text("", encoding="utf-8")
+
+    (docs_dir / "index.html").write_text(site_html, encoding="utf-8")
+    (docs_dir / "vault-schema.schema.json").write_text(json_schema_text, encoding="utf-8")
+    (docs_dir / ".nojekyll").write_text("", encoding="utf-8")
     print(f"generated artifacts for schema v{schema.get('version')}")
 
 

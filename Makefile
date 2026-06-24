@@ -5,7 +5,7 @@ VENV_PIP := $(VENV)/bin/pip
 
 .PHONY: check setup validate generate examples test bundle clean
 
-check: setup generate validate examples test bundle
+check: setup generate bundle validate examples test
 
 setup:
 	$(PYTHON) -m venv $(VENV)
@@ -13,6 +13,9 @@ setup:
 
 generate:
 	$(VENV_PYTHON) scripts/generate_artifacts.py
+
+bundle:
+	$(VENV_PYTHON) scripts/build_release_bundle.py
 
 validate:
 	$(VENV_PYTHON) scripts/validate_repository.py
@@ -22,9 +25,6 @@ examples:
 
 test:
 	$(VENV_PYTHON) tests/test_validate_repository.py
-
-bundle:
-	$(VENV_PYTHON) scripts/build_release_bundle.py
 
 clean:
 	rm -rf $(VENV) dist/vault-schema-v*.zip dist/checksums.txt

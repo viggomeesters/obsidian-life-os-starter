@@ -22,6 +22,8 @@ BLOCKED_PATHS = [".go-workflow", "go_workflow", "tasks.md"]
 BLOCKED_CONTENT = ["This repo has been consolidated into", "Archived", "agent-brain/context/schema"]
 PRIVATE_ARTIFACT_SUFFIXES = {".sqlite", ".db", ".duckdb", ".parquet", ".mbox"}
 PRIVATE_ARTIFACT_NAMES = {"telegram-export", "gmail-export", "imap-cache", "vault-index"}
+PRIVATE_PATH_PATTERNS = ["/Users/viggomeesters", "/mnt/c/Users/Viggo", "iCloud~md~obsidian", "Syncthing/vault"]
+PRIVATE_PATH_ALLOWLIST = {"scripts/validate_repository.py"}
 
 
 def fail(message: str) -> None:
@@ -98,10 +100,19 @@ def main() -> None:
         fail("JSON Schema type enum does not match YAML types")
 
     checksums = (ROOT / "dist" / "checksums.txt").read_text(encoding="utf-8")
-    for rel in ["life-os-schema.yaml", "life-os-schema.md", "versions.json", "dist/vault-schema.schema.json"]:
+    for rel in ["life-os-schema.yaml", "life-os-schema.md", "versions.json", "dist/vault-schema.schema.json", "dist/vault-schema-v9.4.1.zip"]:
         digest = hashlib.sha256((ROOT / rel).read_bytes()).hexdigest()
         if f"{digest}  {rel}" not in checksums:
             fail(f"checksums.txt missing current digest for {rel}")
+
+    sync_pairs = [
+        ("site/index.html", "docs/index.html"),
+        ("site/vault-schema.schema.json", "docs/vault-schema.schema.json"),
+        ("site/generated-schema-reference.md", "docs/generated-schema-reference.md"),
+    ]
+    for left, right in sync_pairs:
+        if (ROOT / left).read_bytes() != (ROOT / right).read_bytes():
+            fail(f"generated Pages artifact drift: {left} != {right}")
 
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     for needle in BLOCKED_CONTENT:
@@ -117,9 +128,15 @@ def main() -> None:
             continue
         if path.suffix.lower() in PRIVATE_ARTIFACT_SUFFIXES:
             fail(f"private/runtime artifact should not be tracked: {path.relative_to(ROOT)}")
-        lowered = str(path.relative_to(ROOT)).lower()
+        rel = path.relative_to(ROOT).as_posix()
+        lowered = rel.lower()
         if any(name in lowered for name in PRIVATE_ARTIFACT_NAMES):
-            fail(f"private export/index-like artifact path present: {path.relative_to(ROOT)}")
+            fail(f"private export/index-like artifact path present: {rel}")
+        if rel not in PRIVATE_PATH_ALLOWLIST:
+            file_text = path.read_text(encoding="utf-8", errors="ignore")
+            for pattern in PRIVATE_PATH_PATTERNS:
+                if pattern in file_text:
+                    fail(f"private/local path pattern {pattern!r} present in {rel}")
 
     print(
         "OK: vault-schema repository validated "

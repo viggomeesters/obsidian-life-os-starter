@@ -27,7 +27,7 @@ Het doel is pas behaald als repo, build, tests, test vault, screenshot/hero, Git
 
 ### In scope
 
-- Repo: `/Users/viggomeesters/Dev/obsidian-{{plugin-id}}`
+- Repo: `{{PLUGIN_REPO_PATH}}`
 - GitHub: `https://github.com/viggomeesters/obsidian-{{plugin-id}}`
 - Plugin id: `{{plugin-id}}`
 - Plugin name: `{{plugin-name}}`
@@ -35,8 +35,8 @@ Het doel is pas behaald als repo, build, tests, test vault, screenshot/hero, Git
   - 
 - Read-only viewer gedrag:
   - 
-- Test vault: `/Users/viggomeesters/Dev/obsidian-plugin-test-vault`
-- Test data: `/Users/viggomeesters/Dev/obsidian-plugin-test-vault/fixtures/{{plugin-id}}/`
+- Test vault: `{{OBSIDIAN_TEST_VAULT}}`
+- Test data: `{{OBSIDIAN_TEST_VAULT}}/fixtures/{{plugin-id}}/`
 
 ### Out of scope
 
@@ -53,7 +53,7 @@ Het doel is pas behaald als repo, build, tests, test vault, screenshot/hero, Git
 - Registry: `system/contracts/obsidian-plugins.yaml`
 - Audit script: `python3 system/scripts/obsidian_plugins/audit_obsidian_plugins.py`
 - Vergelijkbare repos:
-  - `/Users/viggomeesters/Dev/obsidian-...`
+  - `{{PLUGIN_REPO_PARENT}}/obsidian-...`
 
 ## Requirements
 
@@ -95,7 +95,7 @@ Het doel is pas behaald als repo, build, tests, test vault, screenshot/hero, Git
 Als de target repo `.go-workflow/config.yaml` bevat:
 
 ```bash
-cd /Users/viggomeesters/Dev/obsidian-{{plugin-id}}
+cd {{PLUGIN_REPO_PATH}}
 cat AGENTS.md
 cat .go-workflow/config.yaml
 cat .go-workflow/goals.yaml
@@ -111,7 +111,7 @@ Gebruik bestaande runnable taken als die passen. Maak geen parallelle tasklijst 
 ## Testing En Validatie
 
 ```bash
-cd /Users/viggomeesters/Dev/obsidian-{{plugin-id}}
+cd {{PLUGIN_REPO_PATH}}
 npm install
 npm run build
 npx tsc --noEmit
@@ -132,7 +132,7 @@ gh release view "$(node -p "require('./manifest.json').version")" --repo viggome
 Vault/registry:
 
 ```bash
-cd /Users/viggomeesters/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/vault
+cd {{VAULT_PATH}}
 python3 system/scripts/obsidian_plugins/audit_obsidian_plugins.py --json
 python3 system/scripts/vault/validate_vault.py --changed
 python3 system/scripts/vault/validate_vault_workflow.py --changed
@@ -141,7 +141,7 @@ python3 system/scripts/vault/validate_vault_workflow.py --changed
 Test vault:
 
 ```bash
-TEST_VAULT=/Users/viggomeesters/Dev/obsidian-plugin-test-vault
+TEST_VAULT={{OBSIDIAN_TEST_VAULT}}
 mkdir -p "$TEST_VAULT/.obsidian/plugins/{{plugin-id}}" "$TEST_VAULT/fixtures/{{plugin-id}}"
 cp main.js manifest.json styles.css "$TEST_VAULT/.obsidian/plugins/{{plugin-id}}/"
 cp -R fixtures/* "$TEST_VAULT/fixtures/{{plugin-id}}/" 2>/dev/null || true

@@ -19,8 +19,7 @@ VAULT_ROOT_ENV_VARS = ("AGENT_WORKSPACE_VAULT_ROOT", "VIGGO_LIFE_OS_VAULT_ROOT",
 VALIDATOR_ENV_VAR = "AGENT_WORKSPACE_VALIDATOR"
 DEFAULT_VAULT_ROOTS = (
     Path("{{VAULT_PATH}}"),
-    Path("/mnt/c/Users/Viggo/Syncthing/vault"),
-    Path("/Users/viggomeesters/Library/Mobile Documents/iCloud~md~obsidian/Documents/vault"),
+    Path.cwd() / "vault",
 )
 
 
