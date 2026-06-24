@@ -19,7 +19,7 @@
 - [x] Pull request template and issue routing
 - [x] Security/support/conduct/notice/contributor docs
 - [x] Architecture/roadmap/package/maintainer/hero docs
-- [x] GitHub Actions only for explicitly requested Pages publishing
+- [x] GitHub Pages static docs served from `main:/docs` without Actions
 
 Validation command:
 

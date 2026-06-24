@@ -16,7 +16,7 @@
 - No private vault data.
 - No runtime database.
 - No generated vector/index artifacts.
-- No dynamic hosted app; GitHub Pages serves static generated docs only.
+- No dynamic hosted app; GitHub Pages serves static generated docs from `main:/docs` only.
 
 ## Release unit
 

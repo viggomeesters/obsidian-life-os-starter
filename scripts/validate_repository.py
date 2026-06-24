@@ -15,8 +15,8 @@ REQUIRED_FILES = [
     "docs/ARCHITECTURE.md", "docs/ROADMAP.md", "docs/REPO_COMPLETE.md", "docs/MAINTAINER_CHECKLIST.md",
     "docs/PACKAGE.md", "docs/HERO_GUIDELINES.md", "docs/generated-schema-reference.md",
     "docs/compatibility/v9.4.1.md", "CONTRIBUTORS.md", "CODE_OF_CONDUCT.md", "SUPPORT.md", "SECURITY.md", "NOTICE.md",
-    ".github/pull_request_template.md", ".github/ISSUE_TEMPLATE/config.yml", ".github/workflows/pages.yml",
-    "dist/vault-schema.schema.json", "dist/checksums.txt", "site/index.html", "site/vault-schema.schema.json",
+    ".github/pull_request_template.md", ".github/ISSUE_TEMPLATE/config.yml",
+    "dist/vault-schema.schema.json", "dist/checksums.txt", "site/index.html", "site/vault-schema.schema.json", "docs/index.html", "docs/vault-schema.schema.json",
 ]
 BLOCKED_PATHS = [".go-workflow", "go_workflow", "tasks.md"]
 BLOCKED_CONTENT = ["This repo has been consolidated into", "Archived", "agent-brain/context/schema"]
