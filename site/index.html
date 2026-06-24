@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vault Schema v9.4.1</title>
+  <meta name="description" content="Machine-readable vault schema contract for structured Obsidian vaults.">
+  <style>
+    body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; margin: 0; background: #0b1020; color: #e5edf8; }
+    main { max-width: 980px; margin: 0 auto; padding: 48px 24px 80px; }
+    .hero { border: 1px solid #24324d; border-radius: 28px; padding: 34px; background: linear-gradient(135deg,#111a2e,#0b1020); }
+    h1 { font-size: clamp(2.4rem, 8vw, 5rem); margin: 0 0 12px; }
+    p { color: #a7b3c8; line-height: 1.6; }
+    a { color: #5eead4; }
+    table { width: 100%; border-collapse: collapse; margin-top: 28px; background: #111a2e; border-radius: 18px; overflow: hidden; }
+    th,td { padding: 14px 16px; border-bottom: 1px solid #24324d; text-align: left; }
+    th { color: #93c5fd; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 14px; margin: 26px 0; }
+    .card { padding: 18px; border: 1px solid #24324d; border-radius: 18px; background:#111a2e; }
+    .big { font-size: 2rem; font-weight: 800; color:#f8fafc; }
+  </style>
+</head>
+<body><main>
+  <section class="hero">
+    <h1>Vault Schema</h1>
+    <p>Machine-readable vault contract for structured Obsidian vaults. YAML source, generated JSON Schema, templates, synthetic examples, and public-safe validation gates.</p>
+    <p><a href="https://github.com/viggomeesters/vault-schema">GitHub</a> · <a href="vault-schema.schema.json">JSON Schema</a> · <a href="generated-schema-reference.md">Generated reference</a></p>
+  </section>
+  <section class="cards">
+    <div class="card"><div class="big">v9.4.1</div><p>Schema version</p></div>
+    <div class="card"><div class="big">11</div><p>Note types</p></div>
+    <div class="card"><div class="big">5</div><p>Top folders</p></div>
+  </section>
+  <table><thead><tr><th>Type</th><th>Location</th><th>Categories</th></tr></thead><tbody><tr><td><code>entity</code></td><td><code>system/entities/</code></td><td>5</td></tr>
+<tr><td><code>interaction</code></td><td><code>10_notes/{YYYY-MM}/</code></td><td>6</td></tr>
+<tr><td><code>purchase</code></td><td><code>10_notes/{YYYY-MM}/</code></td><td>14</td></tr>
+<tr><td><code>anniversary</code></td><td><code>system/anniversaries/</code></td><td>8</td></tr>
+<tr><td><code>health</code></td><td><code>10_notes/{YYYY-MM}/</code></td><td>6</td></tr>
+<tr><td><code>entry</code></td><td><code>10_notes/{YYYY-MM}/</code></td><td>9</td></tr>
+<tr><td><code>task</code></td><td><code>10_notes/{YYYY-MM}/</code></td><td>8</td></tr>
+<tr><td><code>project</code></td><td><code>system/projects/</code></td><td>5</td></tr>
+<tr><td><code>reference</code></td><td><code>10_notes/{YYYY-MM}/</code></td><td>13</td></tr>
+<tr><td><code>chore</code></td><td><code>system/chores/</code></td><td>11</td></tr>
+<tr><td><code>context</code></td><td><code>system/context/</code></td><td>3</td></tr></tbody></table>
+</main></body></html>

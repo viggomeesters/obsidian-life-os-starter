@@ -23,5 +23,4 @@ gmail-export*/
 imap-cache*/
 vault-index*/
 .cache/
-dist/
 build/

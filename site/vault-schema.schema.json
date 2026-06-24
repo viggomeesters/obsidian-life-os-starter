@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viggomeesters.github.io/vault-schema/vault-schema.schema.json",
+  "title": "Vault Schema Note Frontmatter",
+  "description": "JSON Schema export generated from life-os-schema.yaml for public-safe note frontmatter validation.",
+  "type": "object",
+  "required": [
+    "category",
+    "created",
+    "slug",
+    "source",
+    "timestamp",
+    "topics",
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "anniversary",
+        "chore",
+        "context",
+        "entity",
+        "entry",
+        "health",
+        "interaction",
+        "project",
+        "purchase",
+        "reference",
+        "task"
+      ]
+    },
+    "category": {
+      "type": "string",
+      "description": "Which variant?"
+    },
+    "created": {
+      "type": "string",
+      "format": "date"
+    },
+    "slug": {
+      "type": "string",
+      "description": "Unique identifier (kebab-case)"
+    },
+    "timestamp": {
+      "type": "string"
+    },
+    "area": {
+      "type": "string",
+      "enum": [
+        "work",
+        "home",
+        "self",
+        "social"
+      ],
+      "description": "Which life domain?"
+    },
+    "project": {
+      "type": "string",
+      "description": "Short project code for retrieval and human queries, normally an abbreviation of the project name, e.g. bam. Must not duplicate project_slug when a separate project code exists."
+    },
+    "project_slug": {
+      "type": "string",
+      "description": "Canonical project note slug/filename stem for the project note, e.g. 2026-05-bam."
+    },
+    "entity": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Linked to whom/what?"
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Discovery keywords"
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Alternative names for Obsidian linking"
+    },
+    "source": {
+      "type": "string",
+      "description": "Origin system (manual, codex-chat, telegram, apple-mail, imessage, browser)"
+    },
+    "source_id": {
+      "type": "string",
+      "description": "Stable source identifier for automated captures"
+    },
+    "thread_id": {
+      "type": "string",
+      "description": "Conversation/session/thread identifier for chat-like sources"
+    },
+    "reply_to": {
+      "type": "string",
+      "description": "Slug or source_id this note replies to"
+    },
+    "agent": {
+      "type": "string",
+      "description": "Agent that produced the captured answer when applicable"
+    },
+    "url": {
+      "type": "string",
+      "description": "External URL for web/reference captures"
+    },
+    "generated_from": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "Source contract, note, or export that generated this artifact"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Source paths, URLs, or source_ids used for compiled synthesis"
+    },
+    "source_hash": {
+      "type": "string",
+      "description": "Hash of raw/source content when drift detection is useful"
+    },
+    "source_hash_algorithm": {
+      "type": "string",
+      "description": "Hash algorithm for source_hash, usually sha256"
+    },
+    "source_checked_at": {
+      "type": "string",
+      "description": "Timestamp/date when the raw/source hash or URL was last checked"
+    },
+    "confidence": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "description": "Evidence confidence for generated/evidence notes; use high/medium/low or a numeric model confidence"
+    },
+    "contested": {
+      "type": "boolean",
+      "description": "True when the note contains unresolved contradiction or competing claims"
+    },
+    "contradictions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Related slugs/paths/source_ids that conflict with this note"
+    },
+    "supersedes": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "Older slugs/paths/source_ids this note replaces or materially updates"
+    }
+  },
+  "additionalProperties": true
+}

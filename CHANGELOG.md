@@ -1,5 +1,12 @@
 # Changelog
 
+## v9.4.1 repo-complete hardening — 2026-06-24
+
+- Added hermetic `make check` setup through repo-local `.venv` and `requirements.txt`.
+- Added semantic schema validation for folders, type locations, category matrices, provenance fields, JSON Schema sync, and checksums.
+- Added synthetic public-safe examples for every note type plus example validation.
+- Added generated Markdown reference, JSON Schema export, release bundle, checksums, compatibility report, and static GitHub Pages docs.
+
 ## v9.4.1 — 2026-06-24
 
 - Unarchived and rebranded the repository as `vault-schema`.

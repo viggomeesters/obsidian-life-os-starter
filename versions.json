@@ -5,5 +5,7 @@
   "types": 11,
   "templates": 46,
   "source": "system/contracts/life-os-schema.yaml",
-  "public_repository": "https://github.com/viggomeesters/vault-schema"
+  "schema_sha256": "13ea2599dded5bb720277e94877703cf80d66ad4db1373f4a2384d0c96c7cf02",
+  "public_repository": "https://github.com/viggomeesters/vault-schema",
+  "docs": "https://viggomeesters.github.io/vault-schema/"
 }
