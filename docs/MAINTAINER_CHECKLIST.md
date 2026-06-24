@@ -2,7 +2,7 @@
 
 Before publishing a schema update:
 
-1. Copy/update `life-os-schema.yaml` from the canonical contract source.
+1. Update `vault-schema.json`; run `make generate` to refresh the legacy YAML export and generated artifacts.
 2. Update `life-os-schema.md` and `templates/` when the contract changed.
 3. Update `versions.json`.
 4. Update `CHANGELOG.md`.

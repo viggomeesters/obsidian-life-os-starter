@@ -1,6 +1,6 @@
 # Generated Schema Reference
 
-Generated from `life-os-schema.yaml`. Do not edit by hand; run `make generate`.
+Generated from canonical `vault-schema.json`. Do not edit by hand; run `make generate`.
 
 Schema version: `9.4.1`  
 Updated: `2026-06-08`

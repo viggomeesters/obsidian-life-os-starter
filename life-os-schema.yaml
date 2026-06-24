@@ -1,185 +1,295 @@
-# Life OS Schema — Machine-readable datamodel
-# Version: 9.4.1 (2026-06-08) - project code and project slug identity rules
-# Source of truth: this YAML file. life-os-schema.md is the prose companion.
-# 11 note types, 4 areas, 6 statuses.
-
-version: "9.4.1"
-updated: "2026-06-08"
-
-# ── Enums ──
-
+version: 9.4.1
+updated: '2026-06-08'
 enums:
   area:
-    - work      # Professional — career, employer, colleagues, clients
-    - home      # Domestic — house, household, family, chores
-    - self      # Personal — health, growth, hobbies, learning
-    - social    # Community — friends, network, events
-
+  - work
+  - home
+  - self
+  - social
   status:
-    - value: "🔴 to-do"
-      meaning: Niet gestart
-    - value: "🟠 in progress"
-      meaning: Actief
-    - value: "🔵 waiting"
-      meaning: Geblokkeerd/extern
-    - value: "🟢 done"
-      meaning: Afgerond
-    - value: "🟣 backlog"
-      meaning: Toekomstig
-    - value: "⚫ cancelled"
-      meaning: Geannuleerd
-
+  - value: 🔴 to-do
+    meaning: Niet gestart
+  - value: 🟠 in progress
+    meaning: Actief
+  - value: 🔵 waiting
+    meaning: Geblokkeerd/extern
+  - value: 🟢 done
+    meaning: Afgerond
+  - value: 🟣 backlog
+    meaning: Toekomstig
+  - value: ⚫ cancelled
+    meaning: Geannuleerd
   rating:
-    - value: s-tier
-      meaning: All-time favoriet, onvergetelijk
-    - value: aanrader
-      meaning: Sterk, zeker kijken/lezen
-    - value: prima
-      meaning: Oké, vermakelijk
-    - value: tegenvaller
-      meaning: Viel tegen
-
+  - value: s-tier
+    meaning: All-time favoriet, onvergetelijk
+  - value: aanrader
+    meaning: Sterk, zeker kijken/lezen
+  - value: prima
+    meaning: Oké, vermakelijk
+  - value: tegenvaller
+    meaning: Viel tegen
   pain_level:
-    - "🟢 none"
-    - "🔵 tension"
-    - "🟠 mild"
-    - "🔴 severe"
-
+  - 🟢 none
+  - 🔵 tension
+  - 🟠 mild
+  - 🔴 severe
   chore_nature:
-    - obligation   # Must happen (kattenbak, stofzuigen)
-    - routine      # Bundle of obligations/invests (ochtendroutine)
-    - invest       # Deliberate choice (bewegen, lezen, piano)
-
-# ── Core fields (all types) ──
-
+  - obligation
+  - routine
+  - invest
 core_fields:
-  type:      { type: string, required: true, description: "What IS this?" }
-  category:  { type: string, required: true, description: "Which variant?" }
-  created:   { type: date, required: true, pattern: "YYYY-MM-DD" }
-  slug:      { type: string, required: true, description: "Unique identifier (kebab-case)" }
-  timestamp: { type: string, required: true, pattern: "YYYYMMDD-HHmm" }
-
+  type:
+    type: string
+    required: true
+    description: What IS this?
+  category:
+    type: string
+    required: true
+    description: Which variant?
+  created:
+    type: date
+    required: true
+    pattern: YYYY-MM-DD
+  slug:
+    type: string
+    required: true
+    description: Unique identifier (kebab-case)
+  timestamp:
+    type: string
+    required: true
+    pattern: YYYYMMDD-HHmm
 context_fields:
-  area:     { type: enum, enum: area, description: "Which life domain?" }
-  project:  { type: string, description: "Short project code for retrieval and human queries, normally an abbreviation of the project name, e.g. bam. Must not duplicate project_slug when a separate project code exists." }
-  project_slug: { type: string, description: "Canonical project note slug/filename stem for the project note, e.g. 2026-05-bam." }
-  entity:   { type: array, items: string, description: "Linked to whom/what?" }
-  topics:   { type: array, items: string, required_new: true, non_empty_new: true, description: "Discovery keywords" }
-  aliases:  { type: array, items: string, description: "Alternative names for Obsidian linking" }
-  source:   { type: string, required_new: true, description: "Origin system (manual, codex-chat, telegram, apple-mail, imessage, browser)" }
-  source_id: { type: string, description: "Stable source identifier for automated captures" }
-  thread_id: { type: string, description: "Conversation/session/thread identifier for chat-like sources" }
-  reply_to: { type: string, description: "Slug or source_id this note replies to" }
-  agent:    { type: string, description: "Agent that produced the captured answer when applicable" }
-  url:      { type: string, description: "External URL for web/reference captures" }
-  generated_from: { type: string_or_array, description: "Source contract, note, or export that generated this artifact" }
-  sources: { type: array, items: string, description: "Source paths, URLs, or source_ids used for compiled synthesis" }
-  source_hash: { type: string, description: "Hash of raw/source content when drift detection is useful" }
-  source_hash_algorithm: { type: string, description: "Hash algorithm for source_hash, usually sha256" }
-  source_checked_at: { type: string, description: "Timestamp/date when the raw/source hash or URL was last checked" }
-  confidence: { type: string_or_number, description: "Evidence confidence for generated/evidence notes; use high/medium/low or a numeric model confidence" }
-  contested: { type: boolean, description: "True when the note contains unresolved contradiction or competing claims" }
-  contradictions: { type: array, items: string, description: "Related slugs/paths/source_ids that conflict with this note" }
-  supersedes: { type: string_or_array, description: "Older slugs/paths/source_ids this note replaces or materially updates" }
-
-# ── Folder structure (Drieluik V5) ──
-
+  area:
+    type: enum
+    enum: area
+    description: Which life domain?
+  project:
+    type: string
+    description: Short project code for retrieval and human queries, normally an abbreviation of the project name, e.g. bam.
+      Must not duplicate project_slug when a separate project code exists.
+  project_slug:
+    type: string
+    description: Canonical project note slug/filename stem for the project note, e.g. 2026-05-bam.
+  entity:
+    type: array
+    items: string
+    description: Linked to whom/what?
+  topics:
+    type: array
+    items: string
+    required_new: true
+    non_empty_new: true
+    description: Discovery keywords
+  aliases:
+    type: array
+    items: string
+    description: Alternative names for Obsidian linking
+  source:
+    type: string
+    required_new: true
+    description: Origin system (manual, codex-chat, telegram, apple-mail, imessage, browser)
+  source_id:
+    type: string
+    description: Stable source identifier for automated captures
+  thread_id:
+    type: string
+    description: Conversation/session/thread identifier for chat-like sources
+  reply_to:
+    type: string
+    description: Slug or source_id this note replies to
+  agent:
+    type: string
+    description: Agent that produced the captured answer when applicable
+  url:
+    type: string
+    description: External URL for web/reference captures
+  generated_from:
+    type: string_or_array
+    description: Source contract, note, or export that generated this artifact
+  sources:
+    type: array
+    items: string
+    description: Source paths, URLs, or source_ids used for compiled synthesis
+  source_hash:
+    type: string
+    description: Hash of raw/source content when drift detection is useful
+  source_hash_algorithm:
+    type: string
+    description: Hash algorithm for source_hash, usually sha256
+  source_checked_at:
+    type: string
+    description: Timestamp/date when the raw/source hash or URL was last checked
+  confidence:
+    type: string_or_number
+    description: Evidence confidence for generated/evidence notes; use high/medium/low or a numeric model confidence
+  contested:
+    type: boolean
+    description: True when the note contains unresolved contradiction or competing claims
+  contradictions:
+    type: array
+    items: string
+    description: Related slugs/paths/source_ids that conflict with this note
+  supersedes:
+    type: string_or_array
+    description: Older slugs/paths/source_ids this note replaces or materially updates
 folders:
-  "00_inbox/":
+  00_inbox/:
     purpose: Legacy quarantine buffer for markdown notes that cannot yet be classified safely
     structure: flat
     lifecycle: legacy_quarantine
-  "10_notes/":
+  10_notes/:
     purpose: The Brain (Chronological Timeline for events)
-    structure: "YYYY-MM"
-    types: [interaction, purchase, health, entry, task, reference]
-  "20_files/":
+    structure: YYYY-MM
+    types:
+    - interaction
+    - purchase
+    - health
+    - entry
+    - task
+    - reference
+  20_files/:
     purpose: The Records (Data & Assets in Timeline)
-    structure: "YYYY-MM"
+    structure: YYYY-MM
     types: []
-  "30_media/":
+  30_media/:
     purpose: The Memories (Excluded Binary Data)
-    structure: "YYYY-MM"
-  "system/":
+    structure: YYYY-MM
+  system/:
     purpose: The Engine (Static rules & Structure)
     subfolders:
-      entities: "system/entities/"
-      projects: "system/projects/"
-      chores:   "system/chores/"
-      context:  "system/context/"
-      contracts: "system/contracts/"
-      indexes: "system/indexes/"
-      memory: "system/memory/"
-      anniversaries: "system/anniversaries/"
-
-# ── Note intake lifecycle ──
-
+      entities: system/entities/
+      projects: system/projects/
+      chores: system/chores/
+      context: system/context/
+      contracts: system/contracts/
+      indexes: system/indexes/
+      memory: system/memory/
+      anniversaries: system/anniversaries/
 note_intake:
-  default_creation_location: "canonical"
-  applies_to: [interaction, purchase, health, entry, task, reference, entity, anniversary, project, chore, context]
-  filename: "use final filename pattern immediately"
+  default_creation_location: canonical
+  applies_to:
+  - interaction
+  - purchase
+  - health
+  - entry
+  - task
+  - reference
+  - entity
+  - anniversary
+  - project
+  - chore
+  - context
+  filename: use final filename pattern immediately
   promotion_required: false
   daily_log_required: true
-  retention_rule: "New markdown notes are written directly to the canonical location declared under types.*.location when classification is clear."
-  promotion_rule: "No standard promotion flow. 00_inbox is retained only for legacy/quarantine captures or explicit user request."
-  quarantine_location: "00_inbox/"
-  quarantine_rule: "Use 00_inbox only when classification is uncertain, the capture flow is legacy, or the user explicitly requests inbox placement."
+  retention_rule: New markdown notes are written directly to the canonical location declared under types.*.location when classification
+    is clear.
+  promotion_rule: No standard promotion flow. 00_inbox is retained only for legacy/quarantine captures or explicit user request.
+  quarantine_location: 00_inbox/
+  quarantine_rule: Use 00_inbox only when classification is uncertain, the capture flow is legacy, or the user explicitly
+    requests inbox placement.
   exceptions:
-    - "updates to existing notes"
-    - "daily note log updates"
-    - "daily operational records such as entry:daily and entry:eod"
-    - "schema, contract, and agent-instruction edits"
-    - "legacy/quarantine captures with unresolved classification"
-
+  - updates to existing notes
+  - daily note log updates
+  - daily operational records such as entry:daily and entry:eod
+  - schema, contract, and agent-instruction edits
+  - legacy/quarantine captures with unresolved classification
 anchor_contract:
   new_or_changed_notes:
-    required_fields: [type, category, created, slug, timestamp, area, topics, source]
-    required_context_anchor_any_of: [entity, project, wikilink]
-    required_machine_anchor_any_of: [source, source_id, url]
+    required_fields:
+    - type
+    - category
+    - created
+    - slug
+    - timestamp
+    - area
+    - topics
+    - source
+    required_context_anchor_any_of:
+    - entity
+    - project
+    - wikilink
+    required_machine_anchor_any_of:
+    - source
+    - source_id
+    - url
     required_retrieval_anchor: topics
   source_rules:
-    automated_sources: [telegram, telegram-agent, telegram-voice, apple-mail, imessage, teams, safari-reading-list, browser, downloads]
-    conversational_sources: [telegram, telegram-agent, telegram-voice, imessage, teams]
-    source_id_required_for: [telegram, telegram-agent, telegram-voice, apple-mail, imessage, teams, safari-reading-list, browser, downloads]
-    thread_id_required_for: [telegram, telegram-agent, telegram-voice, imessage, teams]
+    automated_sources:
+    - telegram
+    - telegram-agent
+    - telegram-voice
+    - apple-mail
+    - imessage
+    - teams
+    - safari-reading-list
+    - browser
+    - downloads
+    conversational_sources:
+    - telegram
+    - telegram-agent
+    - telegram-voice
+    - imessage
+    - teams
+    source_id_required_for:
+    - telegram
+    - telegram-agent
+    - telegram-voice
+    - apple-mail
+    - imessage
+    - teams
+    - safari-reading-list
+    - browser
+    - downloads
+    thread_id_required_for:
+    - telegram
+    - telegram-agent
+    - telegram-voice
+    - imessage
+    - teams
   type_rules:
-    entity_required_for_types: [interaction, project]
+    entity_required_for_types:
+    - interaction
+    - project
     project_required_when_project_bound: true
   project_identity_rules:
-    project: "Short stable project code, usually the abbreviation in the project note's types.project.common_fields.code field."
-    project_slug: "Canonical project note slug, equal to the filename stem under system/projects/."
-    do_not_duplicate: "Do not set project and project_slug to the same value unless the project code intentionally equals the project note slug and no shorter code exists."
+    project: Short stable project code, usually the abbreviation in the project note's types.project.common_fields.code field.
+    project_slug: Canonical project note slug, equal to the filename stem under system/projects/.
+    do_not_duplicate: Do not set project and project_slug to the same value unless the project code intentionally equals the
+      project note slug and no shorter code exists.
     example:
       project: bam
       project_slug: 2026-05-bam
-
-# ── Filename conventions ──
-
 filename_patterns:
-  default: "YYYYMMDD-HHmm-slug.md"
-  entity: "slug.md"
-  project: "YYYY-MM-slug.md"
-  anniversary: "MM-DD-category-entity.md"
-  chore: "category-frequency-slug.md"
-
-# ── Types ──
-
+  default: YYYYMMDD-HHmm-slug.md
+  entity: slug.md
+  project: YYYY-MM-slug.md
+  anniversary: MM-DD-category-entity.md
+  chore: category-frequency-slug.md
 types:
   entity:
-    location: "system/entities/"
-    filename: "{slug}.md"
-    description: "People, pets, companies, products, places"
+    location: system/entities/
+    filename: '{slug}.md'
+    description: People, pets, companies, products, places
     categories:
       person:
         description: Human contact
         fields:
-          apple_contact_id: { type: string }
-          first_name: { type: string }
-          last_name: { type: string }
-          phone: { type: string }
-          email: { type: string }
-          birthday: { type: date }
-          contact_frequency: { type: number, description: "Dagen tussen contacten" }
+          apple_contact_id:
+            type: string
+          first_name:
+            type: string
+          last_name:
+            type: string
+          phone:
+            type: string
+          email:
+            type: string
+          birthday:
+            type: date
+          contact_frequency:
+            type: number
+            description: Dagen tussen contacten
       pet:
         description: Animal
       company:
@@ -188,368 +298,918 @@ types:
         description: Physical item
       place:
         description: Location
-
   interaction:
-    location: "10_notes/{YYYY-MM}/"
-    filename: "YYYYMMDD-HHmm-slug.md"
-    description: "Logged contacts with entities"
+    location: 10_notes/{YYYY-MM}/
+    filename: YYYYMMDD-HHmm-slug.md
+    description: Logged contacts with entities
     categories:
-      call: { description: Phone/video call }
-      irl: { description: "In-person" }
-      chat: { description: Text conversation }
-      letter: { description: Physical letter/card }
-      mail: { description: Email message }
-      meeting: { description: Meeting or planned work discussion }
-
+      call:
+        description: Phone/video call
+      irl:
+        description: In-person
+      chat:
+        description: Text conversation
+      letter:
+        description: Physical letter/card
+      mail:
+        description: Email message
+      meeting:
+        description: Meeting or planned work discussion
   purchase:
-    location: "10_notes/{YYYY-MM}/"
-    filename: "YYYYMMDD-HHmm-slug.md"
-    description: "Items bought with amount tracking"
+    location: 10_notes/{YYYY-MM}/
+    filename: YYYYMMDD-HHmm-slug.md
+    description: Items bought with amount tracking
     categories:
-      electronics: { description: Phones, computers, gadgets }
-      appliances: { description: Witgoed, kitchen }
-      furniture: { description: Meubels }
-      clothing: { description: Kleding }
-      baby: { description: Baby items }
-      home: { description: Home improvement and decor }
-      sports: { description: Sports equipment }
-      hobby: { description: Hobby items }
-      vehicle: { description: Car, bike, etc. }
-      pet: { description: Pet food, toys, care supplies }
-      intimate: { description: Intimate wellness products }
-      personal_care: { description: Hygiene and personal care }
-      subscription: { description: Recurring subscriptions and services }
-      other: { description: Miscellaneous }
+      electronics:
+        description: Phones
+        computers: null
+        gadgets: null
+      appliances:
+        description: Witgoed
+        kitchen: null
+      furniture:
+        description: Meubels
+      clothing:
+        description: Kleding
+      baby:
+        description: Baby items
+      home:
+        description: Home improvement and decor
+      sports:
+        description: Sports equipment
+      hobby:
+        description: Hobby items
+      vehicle:
+        description: Car
+        bike: null
+        etc.: null
+      pet:
+        description: Pet food
+        toys: null
+        care supplies: null
+      intimate:
+        description: Intimate wellness products
+      personal_care:
+        description: Hygiene and personal care
+      subscription:
+        description: Recurring subscriptions and services
+      other:
+        description: Miscellaneous
     common_fields:
-      amount: { type: number, required: true }
-      currency: { type: string, default: EUR }
-      store: { type: string }
-
+      amount:
+        type: number
+        required: true
+      currency:
+        type: string
+        default: EUR
+      store:
+        type: string
   anniversary:
-    location: "system/anniversaries/"
-    filename: "MM-DD-category-entity.md"
-    description: "Recurring dates"
+    location: system/anniversaries/
+    filename: MM-DD-category-entity.md
+    description: Recurring dates
     categories:
-      verjaardag: { description: Birthday }
-      getrouwd: { description: Wedding anniversary }
-      adoptie: { description: Pet or family adoption date }
-      verkering: { description: Relationship anniversary }
-      friendship: { description: Friendship anniversary }
-      overleden: { description: Death anniversary }
-      samenwonen: { description: Moving in together anniversary }
-      verhuisd: { description: Move date anniversary }
+      verjaardag:
+        description: Birthday
+      getrouwd:
+        description: Wedding anniversary
+      adoptie:
+        description: Pet or family adoption date
+      verkering:
+        description: Relationship anniversary
+      friendship:
+        description: Friendship anniversary
+      overleden:
+        description: Death anniversary
+      samenwonen:
+        description: Moving in together anniversary
+      verhuisd:
+        description: Move date anniversary
     common_fields:
-      entity: { type: array, required: true }
-      date: { type: date, required: true }
-      recurring: { type: number_or_false, default: 365 }
-
+      entity:
+        type: array
+        required: true
+      date:
+        type: date
+        required: true
+      recurring:
+        type: number_or_false
+        default: 365
   health:
-    location: "10_notes/{YYYY-MM}/"
-    filename: "YYYYMMDD-HHmm-slug.md"
-    description: "Health tracking records"
+    location: 10_notes/{YYYY-MM}/
+    filename: YYYYMMDD-HHmm-slug.md
+    description: Health tracking records
     categories:
       migraine:
         fields:
-          pain_level: { type: enum, enum: pain_level }
-          triggers: { type: array, items: string }
-          meds: { type: array, items: string }
+          pain_level:
+            type: enum
+            enum: pain_level
+          triggers:
+            type: array
+            items: string
+          meds:
+            type: array
+            items: string
       weight:
         fields:
-          weight: { type: number }
+          weight:
+            type: number
       bloodpressure:
         fields:
-          systolic: { type: number }
-          diastolic: { type: number }
-          pulse: { type: number }
+          systolic:
+            type: number
+          diastolic:
+            type: number
+          pulse:
+            type: number
       measurement:
         fields:
-          measurement_type: { type: string }
-          value: { type: number }
-          unit: { type: string }
+          measurement_type:
+            type: string
+          value:
+            type: number
+          unit:
+            type: string
       symptom:
         fields:
-          severity: { type: string }
-          body_part: { type: string }
-          description: { type: string }
+          severity:
+            type: string
+          body_part:
+            type: string
+          description:
+            type: string
       nutrition:
         fields:
-          kcal: { type: number }
-          protein: { type: number }
-          carbs: { type: number }
-          fats: { type: number }
-          fiber: { type: number }
-          tdee: { type: number }
-          deficit: { type: number }
-
+          kcal:
+            type: number
+          protein:
+            type: number
+          carbs:
+            type: number
+          fats:
+            type: number
+          fiber:
+            type: number
+          tdee:
+            type: number
+          deficit:
+            type: number
   entry:
-    location: "10_notes/{YYYY-MM}/"
-    filename: "YYYYMMDD-HHmm-slug.md"
-    description: "Journals, notes, reflections"
+    location: 10_notes/{YYYY-MM}/
+    filename: YYYYMMDD-HHmm-slug.md
+    description: Journals, notes, reflections
     categories:
-      daily: { description: Daily journal }
-      eod: { description: End-of-day operational review }
-      journal: { description: Free-form journal entry }
-      weekly: { description: Weekly review }
-      yearly: { description: Yearly review }
-      note: { description: General note }
-      reflection: { description: Personal reflection }
-      log: { description: Activity log }
-      snapshot: { description: Point-in-time capture }
-
+      daily:
+        description: Daily journal
+      eod:
+        description: End-of-day operational review
+      journal:
+        description: Free-form journal entry
+      weekly:
+        description: Weekly review
+      yearly:
+        description: Yearly review
+      note:
+        description: General note
+      reflection:
+        description: Personal reflection
+      log:
+        description: Activity log
+      snapshot:
+        description: Point-in-time capture
   task:
-    location: "10_notes/{YYYY-MM}/"
-    filename: "YYYYMMDD-HHmm-slug.md"
-    description: "Actions to complete"
+    location: 10_notes/{YYYY-MM}/
+    filename: YYYYMMDD-HHmm-slug.md
+    description: Actions to complete
     categories:
-      inbox: { description: Triage needed or uncategorized task }
-      screen: { description: Computer/digital work }
-      money: { description: Spending, ordering, booking, or payment required }
-      hands: { description: Physical/manual work }
-      ledger: { description: AI-generated audit or ledger workflow task }
-      home: { description: Home-domain task }
-      work: { description: Work-domain task }
-      validation: { description: Validation or QA task }
+      inbox:
+        description: Triage needed or uncategorized task
+      screen:
+        description: Computer/digital work
+      money:
+        description: Spending
+        ordering: null
+        booking: null
+        or payment required: null
+      hands:
+        description: Physical/manual work
+      ledger:
+        description: AI-generated audit or ledger workflow task
+      home:
+        description: Home-domain task
+      work:
+        description: Work-domain task
+      validation:
+        description: Validation or QA task
     has_status: true
     common_fields:
-      status: { type: enum, enum: status, required: true }
-      due: { type: date }
-
+      status:
+        type: enum
+        enum: status
+        required: true
+      due:
+        type: date
   project:
-    location: "system/projects/"
-    filename: "YYYY-MM-slug.md"
-    description: "Container for tasks"
+    location: system/projects/
+    filename: YYYY-MM-slug.md
+    description: Container for tasks
     has_status: true
     categories:
-      personal: { description: Personal projects }
-      client: { description: Client projects }
-      internal: { description: Internal company projects }
-      project: { description: Legacy/general project }
-      social: { description: Social/community project }
+      personal:
+        description: Personal projects
+      client:
+        description: Client projects
+      internal:
+        description: Internal company projects
+      project:
+        description: Legacy/general project
+      social:
+        description: Social/community project
     common_fields:
-      status: { type: enum, enum: status }
-      code: { type: string, description: "Short stable project code used by notes in context_fields.project, e.g. bam for project_slug 2026-05-bam." }
-      mail_codes: { type: array, items: string, description: "Mail detection aliases/codes" }
-
+      status:
+        type: enum
+        enum: status
+      code:
+        type: string
+        description: Short stable project code used by notes in context_fields.project, e.g. bam for project_slug 2026-05-bam.
+      mail_codes:
+        type: array
+        items: string
+        description: Mail detection aliases/codes
   reference:
-    location: "10_notes/{YYYY-MM}/"
-    filename: "YYYYMMDD-HHmm-slug.md"
-    description: "Bookmarks, articles, books, media"
+    location: 10_notes/{YYYY-MM}/
+    filename: YYYYMMDD-HHmm-slug.md
+    description: Bookmarks, articles, books, media
     categories:
-      bookmark: { fields: { url: string } }
-      article: { fields: { url: string, author: string } }
-      attachment: { fields: { original_filename: string } }
-      book: { fields: { author: string, isbn: string } }
-      movie: { fields: { director: string, year: number } }
-      series: { fields: { seasons: number } }
-      podcast: { fields: { url: string, host: string } }
-      video: { fields: { channel: string } }
-      channel: { fields: { url: string, platform: string, thumbnail: string, subscribed: boolean } }
-      game: { fields: { platform: string, genre: string } }
-      course: { fields: { url: string, platform: string, progress: string } }
-      tool: { fields: { url: string, platform: string } }
-      guide: { fields: { url: string } }
-
+      bookmark:
+        fields:
+          url: string
+      article:
+        fields:
+          url: string
+          author: string
+      attachment:
+        fields:
+          original_filename: string
+      book:
+        fields:
+          author: string
+          isbn: string
+      movie:
+        fields:
+          director: string
+          year: number
+      series:
+        fields:
+          seasons: number
+      podcast:
+        fields:
+          url: string
+          host: string
+      video:
+        fields:
+          channel: string
+      channel:
+        fields:
+          url: string
+          platform: string
+          thumbnail: string
+          subscribed: boolean
+      game:
+        fields:
+          platform: string
+          genre: string
+      course:
+        fields:
+          url: string
+          platform: string
+          progress: string
+      tool:
+        fields:
+          url: string
+          platform: string
+      guide:
+        fields:
+          url: string
   chore:
-    location: "system/chores/"
-    filename: "category-frequency-slug.md"
-    description: "Recurring household tasks"
+    location: system/chores/
+    filename: category-frequency-slug.md
+    description: Recurring household tasks
     categories:
-      schoonmaken: { description: Cleaning }
-      onderhoud: { description: Maintenance }
-      opruimen: { description: Tidying }
-      kinderen: { description: Childcare }
-      huisdieren: { description: Pet care }
-      boodschappen: { description: Groceries and cooking }
-      self: { description: Personal routines }
-      administratie: { description: Administration }
-      relaties: { description: Relationship maintenance }
-      health: { description: Health routine }
-      Hygiene: { description: Legacy hygiene category }
+      schoonmaken:
+        description: Cleaning
+      onderhoud:
+        description: Maintenance
+      opruimen:
+        description: Tidying
+      kinderen:
+        description: Childcare
+      huisdieren:
+        description: Pet care
+      boodschappen:
+        description: Groceries and cooking
+      self:
+        description: Personal routines
+      administratie:
+        description: Administration
+      relaties:
+        description: Relationship maintenance
+      health:
+        description: Health routine
+      Hygiene:
+        description: Legacy hygiene category
     common_fields:
-      nature: { type: enum, enum: chore_nature, required: true }
-      frequency: { type: number, required: true, description: "Days between occurrences (1=daily, 7=weekly, 30=monthly)" }
-      active: { type: boolean, default: true, description: "Whether this chore is included in Viggo's active chore tracking loop" }
-      last_done: { type: date, description: "Last completion date, persisted for views and scripts" }
-      duration: { type: number, description: "Time estimate in minutes" }
-      snoozed_until: { type: date, description: "Hide from active chore views until this date" }
-      time_hint: { type: string, description: "Computed start time within routine (derived by dashboard on reorder)" }
-      parent: { type: string, description: "Slug of parent routine (habit stacking)" }
-
+      nature:
+        type: enum
+        enum: chore_nature
+        required: true
+      frequency:
+        type: number
+        required: true
+        description: Days between occurrences (1=daily, 7=weekly, 30=monthly)
+      active:
+        type: boolean
+        default: true
+        description: Whether this chore is included in Viggo's active chore tracking loop
+      last_done:
+        type: date
+        description: Last completion date, persisted for views and scripts
+      duration:
+        type: number
+        description: Time estimate in minutes
+      snoozed_until:
+        type: date
+        description: Hide from active chore views until this date
+      time_hint:
+        type: string
+        description: Computed start time within routine (derived by dashboard on reorder)
+      parent:
+        type: string
+        description: Slug of parent routine (habit stacking)
   context:
-    location: "system/context/"
-    filename: "slug.md"
-    description: "Personal background docs"
+    location: system/context/
+    filename: slug.md
+    description: Personal background docs
     categories:
-      self: { description: Personal background context }
-      project: { description: Project or initiative context }
-      work: { description: Work background context }
+      self:
+        description: Personal background context
+      project:
+        description: Project or initiative context
+      work:
+        description: Work background context
     governance_fields:
-      context_role: { type: enum, values: [stable, operational, evidence, index, register, generated, reference], required: true }
-      context_domain: { type: enum, values: [self, health, work, finance, relationships, system, media, operations, communication], required: true }
-      freshness: { type: enum, values: [stable, current, stale, generated, archival], required: true }
-      last_reviewed: { type: date, required: true }
-      review_cycle: { type: enum, values: [weekly, monthly, quarterly, yearly, event-driven], required: true }
-      source_of_truth: { type: boolean, default: false }
-      confidence: { type: string, description: "Required for context_role=evidence" }
-      generated_from: { type: array, items: string, description: "Required for context_role=generated" }
-      valid_until: { type: date, description: "Optional staleness cutoff for current/operational context" }
-
-
-# ── Type × Category × Area Matrix ──
-# Authoritative validation matrix. A note category is valid only when it is
-# listed under its type here; an area is valid for that type/category only when
-# it is listed in allowed_areas. Keep this in sync with types.*.categories.
-
+      context_role:
+        type: enum
+        values:
+        - stable
+        - operational
+        - evidence
+        - index
+        - register
+        - generated
+        - reference
+        required: true
+      context_domain:
+        type: enum
+        values:
+        - self
+        - health
+        - work
+        - finance
+        - relationships
+        - system
+        - media
+        - operations
+        - communication
+        required: true
+      freshness:
+        type: enum
+        values:
+        - stable
+        - current
+        - stale
+        - generated
+        - archival
+        required: true
+      last_reviewed:
+        type: date
+        required: true
+      review_cycle:
+        type: enum
+        values:
+        - weekly
+        - monthly
+        - quarterly
+        - yearly
+        - event-driven
+        required: true
+      source_of_truth:
+        type: boolean
+        default: false
+      confidence:
+        type: string
+        description: Required for context_role=evidence
+      generated_from:
+        type: array
+        items: string
+        description: Required for context_role=generated
+      valid_until:
+        type: date
+        description: Optional staleness cutoff for current/operational context
 type_category_area:
   entity:
-    person:  { allowed_areas: [home, self, social, work] }
-    pet:     { allowed_areas: [home, social] }
-    company: { allowed_areas: [home, self, social, work] }
-    product: { allowed_areas: [home, self, work] }
-    place:   { allowed_areas: [home, self, social, work] }
-
+    person:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
+    pet:
+      allowed_areas:
+      - home
+      - social
+    company:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
+    product:
+      allowed_areas:
+      - home
+      - self
+      - work
+    place:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
   interaction:
-    call:    { allowed_areas: [home, self, social, work] }
-    irl:     { allowed_areas: [home, self, social, work] }
-    chat:    { allowed_areas: [home, self, social, work] }
-    letter:  { allowed_areas: [home, self, social, work] }
-    mail:    { allowed_areas: [home, self, social, work] }
-    meeting: { allowed_areas: [work] }
-
+    call:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
+    irl:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
+    chat:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
+    letter:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
+    mail:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
+    meeting:
+      allowed_areas:
+      - work
   purchase:
-    electronics:    { allowed_areas: [home, self, work] }
-    appliances:     { allowed_areas: [home] }
-    furniture:      { allowed_areas: [home] }
-    clothing:       { allowed_areas: [self] }
-    baby:           { allowed_areas: [home] }
-    home:           { allowed_areas: [home] }
-    sports:         { allowed_areas: [self] }
-    hobby:          { allowed_areas: [self] }
-    vehicle:        { allowed_areas: [home, self, work] }
-    pet:            { allowed_areas: [home] }
-    intimate:       { allowed_areas: [self] }
-    personal_care:  { allowed_areas: [self] }
-    subscription:   { allowed_areas: [home, self, work] }
-    other:          { allowed_areas: [home, self, social, work] }
-
+    electronics:
+      allowed_areas:
+      - home
+      - self
+      - work
+    appliances:
+      allowed_areas:
+      - home
+    furniture:
+      allowed_areas:
+      - home
+    clothing:
+      allowed_areas:
+      - self
+    baby:
+      allowed_areas:
+      - home
+    home:
+      allowed_areas:
+      - home
+    sports:
+      allowed_areas:
+      - self
+    hobby:
+      allowed_areas:
+      - self
+    vehicle:
+      allowed_areas:
+      - home
+      - self
+      - work
+    pet:
+      allowed_areas:
+      - home
+    intimate:
+      allowed_areas:
+      - self
+    personal_care:
+      allowed_areas:
+      - self
+    subscription:
+      allowed_areas:
+      - home
+      - self
+      - work
+    other:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
   anniversary:
-    verjaardag:  { allowed_areas: [home, self, social] }
-    getrouwd:    { allowed_areas: [self, social] }
-    adoptie:     { allowed_areas: [home, social] }
-    verkering:   { allowed_areas: [self, social] }
-    friendship:  { allowed_areas: [social] }
-    overleden:   { allowed_areas: [home, social] }
-    samenwonen:  { allowed_areas: [self] }
-    verhuisd:    { allowed_areas: [self] }
-
+    verjaardag:
+      allowed_areas:
+      - home
+      - self
+      - social
+    getrouwd:
+      allowed_areas:
+      - self
+      - social
+    adoptie:
+      allowed_areas:
+      - home
+      - social
+    verkering:
+      allowed_areas:
+      - self
+      - social
+    friendship:
+      allowed_areas:
+      - social
+    overleden:
+      allowed_areas:
+      - home
+      - social
+    samenwonen:
+      allowed_areas:
+      - self
+    verhuisd:
+      allowed_areas:
+      - self
   health:
-    migraine:       { allowed_areas: [self] }
-    weight:         { allowed_areas: [self] }
-    bloodpressure:  { allowed_areas: [self] }
-    measurement:    { allowed_areas: [self] }
-    symptom:        { allowed_areas: [self] }
-    nutrition:      { allowed_areas: [self] }
-
+    migraine:
+      allowed_areas:
+      - self
+    weight:
+      allowed_areas:
+      - self
+    bloodpressure:
+      allowed_areas:
+      - self
+    measurement:
+      allowed_areas:
+      - self
+    symptom:
+      allowed_areas:
+      - self
+    nutrition:
+      allowed_areas:
+      - self
   entry:
-    daily:       { allowed_areas: [self] }
-    eod:         { allowed_areas: [self] }
-    journal:     { allowed_areas: [self] }
-    weekly:      { allowed_areas: [self] }
-    yearly:      { allowed_areas: [self] }
-    note:        { allowed_areas: [home, self, social, work] }
-    reflection:  { allowed_areas: [self] }
-    log:         { allowed_areas: [home, self, work] }
-    snapshot:    { allowed_areas: [home, self, social, work] }
-
+    daily:
+      allowed_areas:
+      - self
+    eod:
+      allowed_areas:
+      - self
+    journal:
+      allowed_areas:
+      - self
+    weekly:
+      allowed_areas:
+      - self
+    yearly:
+      allowed_areas:
+      - self
+    note:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
+    reflection:
+      allowed_areas:
+      - self
+    log:
+      allowed_areas:
+      - home
+      - self
+      - work
+    snapshot:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
   task:
-    inbox:       { allowed_areas: [home, self, social, work] }
-    screen:      { allowed_areas: [home, self, social, work] }
-    money:       { allowed_areas: [home, self, work] }
-    hands:       { allowed_areas: [home, self] }
-    ledger:      { allowed_areas: [self, work] }
-    home:        { allowed_areas: [home] }
-    work:        { allowed_areas: [work] }
-    validation:  { allowed_areas: [work] }
-
+    inbox:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
+    screen:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
+    money:
+      allowed_areas:
+      - home
+      - self
+      - work
+    hands:
+      allowed_areas:
+      - home
+      - self
+    ledger:
+      allowed_areas:
+      - self
+      - work
+    home:
+      allowed_areas:
+      - home
+    work:
+      allowed_areas:
+      - work
+    validation:
+      allowed_areas:
+      - work
   project:
-    personal:  { allowed_areas: [home, self, social, work] }
-    client:    { allowed_areas: [work] }
-    internal:  { allowed_areas: [self, work] }
-    project:   { allowed_areas: [work] }
-    social:    { allowed_areas: [social] }
-
+    personal:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
+    client:
+      allowed_areas:
+      - work
+    internal:
+      allowed_areas:
+      - self
+      - work
+    project:
+      allowed_areas:
+      - work
+    social:
+      allowed_areas:
+      - social
   reference:
-    bookmark:    { allowed_areas: [home, self, social, work] }
-    article:     { allowed_areas: [self, work] }
-    attachment:  { allowed_areas: [home, self, social, work] }
-    book:        { allowed_areas: [self] }
-    movie:       { allowed_areas: [self, social] }
-    series:      { allowed_areas: [self, social] }
-    podcast:     { allowed_areas: [self, work] }
-    video:       { allowed_areas: [self, work] }
-    channel:     { allowed_areas: [self, work] }
-    game:        { allowed_areas: [self, social] }
-    course:      { allowed_areas: [self, work] }
-    tool:        { allowed_areas: [self, work] }
-    guide:       { allowed_areas: [home, self, social, work] }
-
+    bookmark:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
+    article:
+      allowed_areas:
+      - self
+      - work
+    attachment:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
+    book:
+      allowed_areas:
+      - self
+    movie:
+      allowed_areas:
+      - self
+      - social
+    series:
+      allowed_areas:
+      - self
+      - social
+    podcast:
+      allowed_areas:
+      - self
+      - work
+    video:
+      allowed_areas:
+      - self
+      - work
+    channel:
+      allowed_areas:
+      - self
+      - work
+    game:
+      allowed_areas:
+      - self
+      - social
+    course:
+      allowed_areas:
+      - self
+      - work
+    tool:
+      allowed_areas:
+      - self
+      - work
+    guide:
+      allowed_areas:
+      - home
+      - self
+      - social
+      - work
   chore:
-    schoonmaken:    { allowed_areas: [home] }
-    onderhoud:      { allowed_areas: [home, self] }
-    opruimen:       { allowed_areas: [home] }
-    kinderen:       { allowed_areas: [home] }
-    huisdieren:     { allowed_areas: [home] }
-    boodschappen:   { allowed_areas: [home] }
-    self:           { allowed_areas: [home, self, work] }
-    administratie:  { allowed_areas: [home, self] }
-    relaties:       { allowed_areas: [home, social] }
-    health:         { allowed_areas: [home, self] }
-    Hygiene:        { allowed_areas: [home] }
-
+    schoonmaken:
+      allowed_areas:
+      - home
+    onderhoud:
+      allowed_areas:
+      - home
+      - self
+    opruimen:
+      allowed_areas:
+      - home
+    kinderen:
+      allowed_areas:
+      - home
+    huisdieren:
+      allowed_areas:
+      - home
+    boodschappen:
+      allowed_areas:
+      - home
+    self:
+      allowed_areas:
+      - home
+      - self
+      - work
+    administratie:
+      allowed_areas:
+      - home
+      - self
+    relaties:
+      allowed_areas:
+      - home
+      - social
+    health:
+      allowed_areas:
+      - home
+      - self
+    Hygiene:
+      allowed_areas:
+      - home
   context:
-    self:     { allowed_areas: [self, work] }
-    project:  { allowed_areas: [self, work] }
-    work:     { allowed_areas: [work] }
-
-# ── Database Column Declarations ──
+    self:
+      allowed_areas:
+      - self
+      - work
+    project:
+      allowed_areas:
+      - self
+      - work
+    work:
+      allowed_areas:
+      - work
 db_columns:
-  path:               { sqlite_type: TEXT, primary_key: true, source: internal }
-  type:               { sqlite_type: TEXT, source: core_fields }
-  category:           { sqlite_type: TEXT, source: core_fields }
-  slug:               { sqlite_type: TEXT, source: core_fields, fallback: "filepath.stem" }
-  timestamp:          { sqlite_type: TEXT, source: core_fields }
-  area:               { sqlite_type: TEXT, source: context_fields }
-  status:             { sqlite_type: TEXT, source: context_fields }
-  project:            { sqlite_type: TEXT, source: context_fields }
-  project_slug:       { sqlite_type: TEXT, source: context_fields }
-  priority:           { sqlite_type: TEXT, source: operational }
-  assigned_to:        { sqlite_type: TEXT, source: operational }
-  claimed_at:         { sqlite_type: TEXT, source: operational }
-  date:               { sqlite_type: TEXT, source: type_field }
-  created:            { sqlite_type: TEXT, source: core_fields }
-  due:                { sqlite_type: TEXT, source: type_field }
-  frequency:          { sqlite_type: INTEGER, source: type_field, extract: _safe_int }
-  nature:             { sqlite_type: TEXT, source: type_field }
-  parent:             { sqlite_type: TEXT, source: type_field }
-  time_hint:          { sqlite_type: TEXT, source: type_field }
-  duration:           { sqlite_type: TEXT, source: type_field, fallback_field: effort }
-  active:             { sqlite_type: INTEGER, source: type_field, extract: _parse_active }
-  last_done:          { sqlite_type: TEXT, source: type_field }
-  snoozed_until:      { sqlite_type: TEXT, source: type_field }
-  entity:             { sqlite_type: TEXT, source: context_fields, extract: _entity }
-  source:             { sqlite_type: TEXT, source: context_fields }
-  source_id:          { sqlite_type: TEXT, source: context_fields }
-  thread_id:          { sqlite_type: TEXT, source: context_fields }
-  reply_to:           { sqlite_type: TEXT, source: context_fields }
-  agent:              { sqlite_type: TEXT, source: context_fields }
-  url:                { sqlite_type: TEXT, source: context_fields }
-  title:              { sqlite_type: TEXT, source: type_field }
-  last_contact:       { sqlite_type: TEXT, source: derived }
-  interaction_links:  { sqlite_type: TEXT, source: derived }
-  completion_dates:   { sqlite_type: TEXT, source: derived, note: "extracted from # Completions date lines and legacy ## ✅ headers" }
-  skip_dates:         { sqlite_type: TEXT, source: derived, note: "extracted from ## ⏭ headers" }
-  pain_level:         { sqlite_type: TEXT, source: cat_field }
-  weight:             { sqlite_type: REAL, source: cat_field, extract: _safe_float }
-  body:               { sqlite_type: "TEXT NOT NULL DEFAULT ''", source: derived }
-  frontmatter_json:   { sqlite_type: TEXT, source: internal }
-  validation_errors:  { sqlite_type: TEXT, source: derived }
+  path:
+    sqlite_type: TEXT
+    primary_key: true
+    source: internal
+  type:
+    sqlite_type: TEXT
+    source: core_fields
+  category:
+    sqlite_type: TEXT
+    source: core_fields
+  slug:
+    sqlite_type: TEXT
+    source: core_fields
+    fallback: filepath.stem
+  timestamp:
+    sqlite_type: TEXT
+    source: core_fields
+  area:
+    sqlite_type: TEXT
+    source: context_fields
+  status:
+    sqlite_type: TEXT
+    source: context_fields
+  project:
+    sqlite_type: TEXT
+    source: context_fields
+  project_slug:
+    sqlite_type: TEXT
+    source: context_fields
+  priority:
+    sqlite_type: TEXT
+    source: operational
+  assigned_to:
+    sqlite_type: TEXT
+    source: operational
+  claimed_at:
+    sqlite_type: TEXT
+    source: operational
+  date:
+    sqlite_type: TEXT
+    source: type_field
+  created:
+    sqlite_type: TEXT
+    source: core_fields
+  due:
+    sqlite_type: TEXT
+    source: type_field
+  frequency:
+    sqlite_type: INTEGER
+    source: type_field
+    extract: _safe_int
+  nature:
+    sqlite_type: TEXT
+    source: type_field
+  parent:
+    sqlite_type: TEXT
+    source: type_field
+  time_hint:
+    sqlite_type: TEXT
+    source: type_field
+  duration:
+    sqlite_type: TEXT
+    source: type_field
+    fallback_field: effort
+  active:
+    sqlite_type: INTEGER
+    source: type_field
+    extract: _parse_active
+  last_done:
+    sqlite_type: TEXT
+    source: type_field
+  snoozed_until:
+    sqlite_type: TEXT
+    source: type_field
+  entity:
+    sqlite_type: TEXT
+    source: context_fields
+    extract: _entity
+  source:
+    sqlite_type: TEXT
+    source: context_fields
+  source_id:
+    sqlite_type: TEXT
+    source: context_fields
+  thread_id:
+    sqlite_type: TEXT
+    source: context_fields
+  reply_to:
+    sqlite_type: TEXT
+    source: context_fields
+  agent:
+    sqlite_type: TEXT
+    source: context_fields
+  url:
+    sqlite_type: TEXT
+    source: context_fields
+  title:
+    sqlite_type: TEXT
+    source: type_field
+  last_contact:
+    sqlite_type: TEXT
+    source: derived
+  interaction_links:
+    sqlite_type: TEXT
+    source: derived
+  completion_dates:
+    sqlite_type: TEXT
+    source: derived
+    note: 'extracted from # Completions date lines and legacy ## ✅ headers'
+  skip_dates:
+    sqlite_type: TEXT
+    source: derived
+    note: 'extracted from ## ⏭ headers'
+  pain_level:
+    sqlite_type: TEXT
+    source: cat_field
+  weight:
+    sqlite_type: REAL
+    source: cat_field
+    extract: _safe_float
+  body:
+    sqlite_type: TEXT NOT NULL DEFAULT ''
+    source: derived
+  frontmatter_json:
+    sqlite_type: TEXT
+    source: internal
+  validation_errors:
+    sqlite_type: TEXT
+    source: derived

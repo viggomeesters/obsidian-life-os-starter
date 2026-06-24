@@ -4,11 +4,12 @@ This repository is the public schema mirror for the structured Obsidian vault co
 
 ## Source of truth
 
-- `life-os-schema.yaml` is canonical.
+- `vault-schema.json` is canonical.
+- `life-os-schema.yaml` is a generated legacy export.
 - `life-os-schema.md` is explanatory prose.
 - `templates/` contains public-safe reusable templates.
 - `examples/` contains synthetic fixtures only; never infer or add private vault data.
-- `dist/`, `docs/generated-schema-reference.md`, and `site/` are generated artifacts from the YAML contract.
+- `dist/`, `docs/generated-schema-reference.md`, and `site/` are generated artifacts from the JSON contract.
 - The repository must never contain private vault notes, generated indexes, exports, databases, caches, or attachments.
 
 ## Required workflow

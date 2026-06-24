@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 import hashlib
+import json
 from pathlib import Path
 import zipfile
-import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
-SCHEMA = yaml.safe_load((ROOT / "life-os-schema.yaml").read_text(encoding="utf-8"))
+SCHEMA = json.loads((ROOT / "vault-schema.json").read_text(encoding="utf-8"))
 VERSION = SCHEMA["version"]
 FILES = [
-    "README.md", "LICENSE", "life-os-schema.yaml", "life-os-schema.md", "versions.json",
+    "README.md", "CHANGELOG.md", "LICENSE", "vault-schema.json", "life-os-schema.yaml", "life-os-schema.md", "versions.json",
     "dist/vault-schema.schema.json", "docs/generated-schema-reference.md", "docs/compatibility/v9.4.1.md",
 ]
 FIXED_ZIP_DATE = (2026, 1, 1, 0, 0, 0)

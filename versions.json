@@ -4,8 +4,10 @@
   "updated": "2026-06-08",
   "types": 11,
   "templates": 46,
-  "source": "system/contracts/life-os-schema.yaml",
-  "schema_sha256": "13ea2599dded5bb720277e94877703cf80d66ad4db1373f4a2384d0c96c7cf02",
+  "source": "vault-schema.json",
+  "schema_sha256": "6a62d096ff1661f6094d231ea804c5ad23608350198465b47525b7186e736d93",
   "public_repository": "https://github.com/viggomeesters/vault-schema",
-  "docs": "https://viggomeesters.github.io/vault-schema/"
+  "docs": "https://viggomeesters.github.io/vault-schema/",
+  "legacy_yaml": "life-os-schema.yaml",
+  "legacy_yaml_sha256": "e66b7ba40972b9812e5ea69ddefc487ec192cf365d87cef3ab504dd9ea519b5c"
 }

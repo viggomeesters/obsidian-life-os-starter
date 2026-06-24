@@ -3,10 +3,11 @@ from __future__ import annotations
 from pathlib import Path
 import re
 import sys
+import json
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-SCHEMA = yaml.safe_load((ROOT / "life-os-schema.yaml").read_text(encoding="utf-8"))
+SCHEMA = json.loads((ROOT / "vault-schema.json").read_text(encoding="utf-8"))
 REQUIRED = set(SCHEMA["anchor_contract"]["new_or_changed_notes"]["required_fields"])
 REQUIRED_TYPES = set(SCHEMA["types"].keys())
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")

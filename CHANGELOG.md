@@ -1,5 +1,11 @@
 # Changelog
 
+## v9.4.1 JSON canonical migration — 2026-06-24
+
+- Made `vault-schema.json` the canonical machine-readable contract.
+- Kept `life-os-schema.yaml` as a generated legacy export with drift and checksum validation.
+- Updated generators, validators, release bundles, Pages docs, and agent instructions to treat JSON as source of truth.
+
 ## v9.4.1 repo-complete hardening — 2026-06-24
 
 - Added hermetic `make check` setup through repo-local `.venv` and `requirements.txt`.
@@ -11,7 +17,7 @@
 
 - Unarchived and rebranded the repository as `vault-schema`.
 - Restored a standalone public schema mirror instead of an archive pointer.
-- Added latest `life-os-schema.yaml` from the canonical vault contract (`version: 9.4.1`, `updated: 2026-06-08`).
+- Added latest schema contract from the canonical vault source (`version: 9.4.1`, `updated: 2026-06-08`).
 - Updated prose documentation and templates from the vault contract.
 - Added repo-complete public surface, validation guard, maintainer docs, issue/PR routing, and public-safety boundary.
 

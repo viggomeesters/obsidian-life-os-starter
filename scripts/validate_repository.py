@@ -10,7 +10,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_FILES = [
-    "README.md", "LICENSE", "life-os-schema.yaml", "life-os-schema.md", "versions.json", "Makefile",
+    "README.md", "LICENSE", "vault-schema.json", "life-os-schema.yaml", "life-os-schema.md", "versions.json", "Makefile",
     "requirements.txt", "AGENTS.md", ".editorconfig", "assets/vault-schema-hero.svg",
     "docs/ARCHITECTURE.md", "docs/ROADMAP.md", "docs/REPO_COMPLETE.md", "docs/MAINTAINER_CHECKLIST.md",
     "docs/PACKAGE.md", "docs/HERO_GUIDELINES.md", "docs/generated-schema-reference.md",
@@ -31,6 +31,9 @@ def fail(message: str) -> None:
     raise SystemExit(1)
 
 
+def read_json(path: Path) -> dict:
+    return json.loads(path.read_text(encoding="utf-8"))
+
 def read_yaml(path: Path) -> dict:
     return yaml.safe_load(path.read_text(encoding="utf-8"))
 
@@ -49,15 +52,21 @@ def main() -> None:
         if (ROOT / blocked).exists():
             fail(f"blocked repo-local workflow artifact present: {blocked}")
 
-    schema = read_yaml(ROOT / "life-os-schema.yaml")
+    schema = read_json(ROOT / "vault-schema.json")
     versions = json.loads((ROOT / "versions.json").read_text(encoding="utf-8"))
     if str(schema.get("version")) != versions.get("version"):
-        fail("versions.json version does not match life-os-schema.yaml")
+        fail("versions.json version does not match vault-schema.json")
     if len(schema.get("types", {}) or {}) != versions.get("types"):
         fail("versions.json type count does not match schema types")
-    schema_hash = hashlib.sha256((ROOT / "life-os-schema.yaml").read_bytes()).hexdigest()
+    schema_hash = hashlib.sha256((ROOT / "vault-schema.json").read_bytes()).hexdigest()
     if versions.get("schema_sha256") != schema_hash:
-        fail("versions.json schema_sha256 does not match life-os-schema.yaml")
+        fail("versions.json schema_sha256 does not match vault-schema.json")
+    legacy_yaml = read_yaml(ROOT / "life-os-schema.yaml")
+    if legacy_yaml != schema:
+        fail("legacy life-os-schema.yaml drifted from canonical vault-schema.json; run make generate")
+    legacy_hash = hashlib.sha256((ROOT / "life-os-schema.yaml").read_bytes()).hexdigest()
+    if versions.get("legacy_yaml_sha256") != legacy_hash:
+        fail("versions.json legacy_yaml_sha256 does not match generated life-os-schema.yaml")
 
     folders = schema.get("folders") or {}
     subfolders = folders.get("system/", {}).get("subfolders") or {}
@@ -97,10 +106,10 @@ def main() -> None:
 
     dist_schema = json.loads((ROOT / "dist" / "vault-schema.schema.json").read_text(encoding="utf-8"))
     if sorted(dist_schema.get("properties", {}).get("type", {}).get("enum", [])) != sorted(type_names):
-        fail("JSON Schema type enum does not match YAML types")
+        fail("JSON Schema type enum does not match canonical JSON types")
 
     checksums = (ROOT / "dist" / "checksums.txt").read_text(encoding="utf-8")
-    for rel in ["life-os-schema.yaml", "life-os-schema.md", "versions.json", "dist/vault-schema.schema.json", "dist/vault-schema-v9.4.1.zip"]:
+    for rel in ["vault-schema.json", "life-os-schema.yaml", "life-os-schema.md", "versions.json", "dist/vault-schema.schema.json", "dist/vault-schema-v9.4.1.zip"]:
         digest = hashlib.sha256((ROOT / rel).read_bytes()).hexdigest()
         if f"{digest}  {rel}" not in checksums:
             fail(f"checksums.txt missing current digest for {rel}")
@@ -124,7 +133,9 @@ def main() -> None:
         fail("README does not link GitHub Pages docs site")
 
     for path in ROOT.rglob("*"):
-        if ".git" in path.parts or ".venv" in path.parts or not path.is_file():
+        if ".git" in path.parts or ".venv" in path.parts or "__pycache__" in path.parts or not path.is_file():
+            continue
+        if path.suffix.lower() in {".pyc", ".pyo"}:
             continue
         if path.suffix.lower() in PRIVATE_ARTIFACT_SUFFIXES:
             fail(f"private/runtime artifact should not be tracked: {path.relative_to(ROOT)}")

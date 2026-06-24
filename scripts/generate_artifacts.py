@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 from __future__ import annotations
+import hashlib
 import json
 from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-SCHEMA_PATH = ROOT / "life-os-schema.yaml"
+SCHEMA_PATH = ROOT / "vault-schema.json"
+LEGACY_YAML_PATH = ROOT / "life-os-schema.yaml"
 DIST = ROOT / "dist"
 SITE = ROOT / "site"
 
@@ -21,9 +23,33 @@ TYPE_MAP = {
 }
 
 
-def load_schema():
-    return yaml.safe_load(SCHEMA_PATH.read_text(encoding="utf-8"))
+def load_schema() -> dict:
+    return json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
 
+
+def dump_legacy_yaml(schema: dict) -> None:
+    LEGACY_YAML_PATH.write_text(
+        yaml.safe_dump(schema, sort_keys=False, allow_unicode=True, width=120),
+        encoding="utf-8",
+    )
+
+
+
+def update_versions(schema: dict) -> None:
+    path = ROOT / "versions.json"
+    versions = json.loads(path.read_text(encoding="utf-8"))
+    versions.update({
+        "schema": f"v{schema.get('version')}",
+        "version": str(schema.get("version")),
+        "updated": str(schema.get("updated")),
+        "types": len(schema.get("types") or {}),
+        "templates": len([p for p in (ROOT / "templates").rglob("*") if p.is_file()]),
+        "source": "vault-schema.json",
+        "legacy_yaml": "life-os-schema.yaml",
+        "schema_sha256": hashlib.sha256(SCHEMA_PATH.read_bytes()).hexdigest(),
+        "legacy_yaml_sha256": hashlib.sha256(LEGACY_YAML_PATH.read_bytes()).hexdigest(),
+    })
+    path.write_text(json.dumps(versions, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 def json_schema_for_contract(schema: dict) -> dict:
     props = {}
@@ -50,7 +76,7 @@ def json_schema_for_contract(schema: dict) -> dict:
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "https://viggomeesters.github.io/vault-schema/vault-schema.schema.json",
         "title": "Vault Schema Note Frontmatter",
-        "description": "JSON Schema export generated from life-os-schema.yaml for public-safe note frontmatter validation.",
+        "description": "JSON Schema export generated from canonical vault-schema.json for public-safe note frontmatter validation.",
         "type": "object",
         "required": sorted(set(required)),
         "properties": props,
@@ -62,7 +88,7 @@ def markdown_tables(schema: dict) -> str:
     lines = [
         "# Generated Schema Reference",
         "",
-        "Generated from `life-os-schema.yaml`. Do not edit by hand; run `make generate`.",
+        "Generated from canonical `vault-schema.json`. Do not edit by hand; run `make generate`.",
         "",
         f"Schema version: `{schema.get('version')}`  ",
         f"Updated: `{schema.get('updated')}`",
@@ -96,7 +122,7 @@ def site_index(schema: dict) -> str:
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Vault Schema v{schema.get('version')}</title>
-  <meta name="description" content="Machine-readable vault schema contract for structured Obsidian vaults.">
+  <meta name="description" content="Machine-readable JSON vault schema contract for structured agent-readable vaults.">
   <style>
     body {{ font-family: Inter, ui-sans-serif, system-ui, sans-serif; margin: 0; background: #0b1020; color: #e5edf8; }}
     main {{ max-width: 980px; margin: 0 auto; padding: 48px 24px 80px; }}
@@ -115,7 +141,7 @@ def site_index(schema: dict) -> str:
 <body><main>
   <section class="hero">
     <h1>Vault Schema</h1>
-    <p>Machine-readable vault contract for structured Obsidian vaults. YAML source, generated JSON Schema, templates, synthetic examples, and public-safe validation gates.</p>
+    <p>Machine-readable JSON vault contract for structured agent-readable vaults. JSON canonical source, generated JSON Schema, legacy YAML export, templates, synthetic examples, and public-safe validation gates.</p>
     <p><a href="https://github.com/viggomeesters/vault-schema">GitHub</a> · <a href="vault-schema.schema.json">JSON Schema</a> · <a href="generated-schema-reference.md">Generated reference</a></p>
   </section>
   <section class="cards">
@@ -133,6 +159,8 @@ def main() -> None:
     SITE.mkdir(exist_ok=True)
     docs_dir = ROOT / "docs"
     docs_dir.mkdir(exist_ok=True)
+    dump_legacy_yaml(schema)
+    update_versions(schema)
     json_schema = json_schema_for_contract(schema)
     json_schema_text = json.dumps(json_schema, indent=2, ensure_ascii=False) + "\n"
     generated_reference = markdown_tables(schema)

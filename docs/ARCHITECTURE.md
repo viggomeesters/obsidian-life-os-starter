@@ -4,11 +4,11 @@
 
 ## Layers
 
-1. **Contract** — `life-os-schema.yaml` defines note types, fields, enums, canonical locations, intake rules, anchors, filename patterns, and database-column hints.
-2. **Prose companion** — `life-os-schema.md` explains the same model for humans.
+1. **Contract** — `vault-schema.json` defines note types, fields, enums, canonical locations, intake rules, anchors, filename patterns, and database-column hints.
+2. **Legacy/prose surfaces** — `life-os-schema.yaml` is generated for compatibility; `life-os-schema.md` explains the same model for humans.
 3. **Templates** — `templates/` contains reusable public-safe templates mirrored from the vault contract.
 4. **Examples** — `examples/` contains synthetic public-safe note fixtures, one per type.
-5. **Generated artifacts** — `dist/vault-schema.schema.json`, `docs/generated-schema-reference.md`, and `site/` are generated from the YAML source.
+5. **Generated artifacts** — `dist/vault-schema.schema.json`, `docs/generated-schema-reference.md`, and `site/` are generated from the canonical JSON source.
 6. **Guard** — `scripts/validate_repository.py` and `scripts/validate_examples.py` check identity, version alignment, schema semantics, template coverage, examples, public-safety boundaries, checksums, and required repo-complete files.
 
 ## Non-goals

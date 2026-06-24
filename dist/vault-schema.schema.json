@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://viggomeesters.github.io/vault-schema/vault-schema.schema.json",
   "title": "Vault Schema Note Frontmatter",
-  "description": "JSON Schema export generated from life-os-schema.yaml for public-safe note frontmatter validation.",
+  "description": "JSON Schema export generated from canonical vault-schema.json for public-safe note frontmatter validation.",
   "type": "object",
   "required": [
     "category",

@@ -1,6 +1,6 @@
 # Life OS Schema v9.4.0
 
-This document defines the unified data model for the Life OS platform. It is the prose companion to `system/contracts/life-os-schema.yaml`, the machine-readable source of truth for how notes are structured, categorized, and linked across the vault.
+This document defines the unified data model for the Life OS platform. It is the prose companion to `vault-schema.json`, the canonical machine-readable source of truth for how notes are structured, categorized, and linked across the vault. `life-os-schema.yaml` is retained as a generated legacy export for existing tooling.
 
 ## Design Principles
 
@@ -37,7 +37,7 @@ New markdown notes are written directly to their canonical schema location when 
 
 ### Note Intake Lifecycle
 
-By default, new markdown notes are created directly at the canonical location declared in `life-os-schema.yaml` under `types.*.location`. The note must use the final filename pattern immediately and must be linked from the daily note `## Log`. `00_inbox/` is only for legacy/quarantine captures where classification is not safe yet.
+By default, new markdown notes are created directly at the canonical location declared in `vault-schema.json` under `types.*.location`. The note must use the final filename pattern immediately and must be linked from the daily note `## Log`. `00_inbox/` is only for legacy/quarantine captures where classification is not safe yet.
 
 Exceptions:
 - Updates to existing notes stay in place

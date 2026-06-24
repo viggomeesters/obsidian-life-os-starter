@@ -4,7 +4,7 @@
 
 **Vault Schema** is the public, machine-readable schema contract for a structured Obsidian vault: note types, frontmatter fields, canonical folders, filename patterns, templates, examples, generated JSON Schema, and validation expectations.
 
-This repository is the standalone schema mirror for the current vault contract. The machine-readable source is [`life-os-schema.yaml`](life-os-schema.yaml); [`life-os-schema.md`](life-os-schema.md) is the prose companion.
+This repository is the standalone schema mirror for the current vault contract. The canonical machine-readable source is [`vault-schema.json`](vault-schema.json). [`life-os-schema.yaml`](life-os-schema.yaml) is a generated legacy export, and [`life-os-schema.md`](life-os-schema.md) is the prose companion.
 
 ## Current contract
 
@@ -24,7 +24,8 @@ This repository is the standalone schema mirror for the current vault contract. 
 
 ```text
 vault-schema/
-├── life-os-schema.yaml      # Machine-readable schema contract
+├── vault-schema.json        # Canonical machine-readable schema contract
+├── life-os-schema.yaml      # Generated legacy YAML export
 ├── life-os-schema.md        # Prose documentation companion
 ├── templates/               # Frontmatter/content templates mirrored from the vault contract
 ├── examples/                # Synthetic public-safe examples per note type
@@ -46,20 +47,20 @@ make check
 
 `make check` creates a repo-local `.venv`, installs `requirements.txt`, regenerates derived artifacts, validates schema semantics, validates synthetic examples, and builds the release bundle/checksums.
 
-Use the YAML contract directly from automation:
+Use the JSON contract directly from automation:
 
 ```python
-import yaml
+import json
 from pathlib import Path
-schema = yaml.safe_load(Path("life-os-schema.yaml").read_text())
+schema = json.loads(Path("vault-schema.json").read_text())
 print(schema["version"])
 ```
 
 ## Agent usage
 
-Agents should treat `life-os-schema.yaml` as the canonical contract and use the prose doc/templates only as helpers.
+Agents should treat `vault-schema.json` as the canonical contract. YAML/prose/templates are compatibility and helper surfaces.
 
-1. Read `life-os-schema.yaml` first.
+1. Read `vault-schema.json` first.
 2. Use `types.*.location`, `filename_patterns`, `core_fields`, and `context_fields` to decide canonical write locations.
 3. Only use inbox/quarantine paths when classification is genuinely unclear.
 4. Preserve provenance fields (`source`, `source_id`, `thread_id`, `project_slug`, `topics`) for automated captures.

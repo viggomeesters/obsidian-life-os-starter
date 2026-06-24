@@ -3,7 +3,7 @@
 - [x] Standalone public identity: `viggomeesters/vault-schema`
 - [x] Repo unarchived
 - [x] README with hero, quick start, safety boundary, generated artifacts, and agent usage
-- [x] Current machine-readable schema: `life-os-schema.yaml` v9.4.1
+- [x] Current machine-readable schema: `vault-schema.json` v9.4.1, with generated `life-os-schema.yaml` legacy export
 - [x] Prose companion: `life-os-schema.md`
 - [x] Latest templates copied from the vault contract
 - [x] Synthetic public-safe examples for every note type
