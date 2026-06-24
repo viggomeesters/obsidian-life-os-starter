@@ -1,4 +1,4 @@
-# Life OS Schema v9.4.0
+# Life OS Schema v9.4.1
 
 This document defines the unified data model for the Life OS platform. It is the prose companion to `vault-schema.json`, the canonical machine-readable source of truth for how notes are structured, categorized, and linked across the vault. `life-os-schema.yaml` is retained as a generated legacy export for existing tooling.
 
@@ -1009,6 +1009,7 @@ Optional completion note
 
 | Version | Date | Changes |
 |---------|------|---------|
+| v9.4.1 | 2026-06-24 | Made `vault-schema.json` the canonical machine-readable contract. `life-os-schema.yaml` is retained as a generated legacy export with drift/checksum validation. |
 | v9.4.0 | 2026-06-05 | Added vault-workflow anchors, canonical direct-write lifecycle, source/source_id/thread_id fields, `system/indexes/`, and `00_inbox/` as legacy/quarantine instead of default intake. |
 | v9.3.4 | 2026-06-01 | Added `entry:eod` for end-of-day operational reviews. EOD notes may be written directly to `10_notes/YYYY-MM/` as daily operational timeline records and can feed morning briefs, metrics extraction, and AI context. |
 | v9.3.2 | 2026-05-20 | Changed the note intake lifecycle: new markdown notes are created in `00_inbox/` and remain there by default; promotion happens only on explicit request or explicit migration/promotion runs. |

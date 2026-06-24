@@ -58,6 +58,9 @@ def main() -> None:
         fail("versions.json version does not match vault-schema.json")
     if len(schema.get("types", {}) or {}) != versions.get("types"):
         fail("versions.json type count does not match schema types")
+    prose_first_line = (ROOT / "life-os-schema.md").read_text(encoding="utf-8").splitlines()[0]
+    if f"v{schema.get('version')}" not in prose_first_line:
+        fail("life-os-schema.md title version does not match vault-schema.json")
     schema_hash = hashlib.sha256((ROOT / "vault-schema.json").read_bytes()).hexdigest()
     if versions.get("schema_sha256") != schema_hash:
         fail("versions.json schema_sha256 does not match vault-schema.json")
